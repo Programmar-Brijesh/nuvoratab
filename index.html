@@ -106,30 +106,77 @@
     <!-- 2. HERO SECTION -->
     <section class="hero-section" id="hero">
       <div class="container">
-        <div class="hero-inner">
-          <div class="hero-tag">
-            <span>CHROME NEW TAB ENGINE</span>
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-tag">
+              <span>CHROME NEW TAB ENGINE</span>
+            </div>
+
+            <h1 class="hero-title">
+              A distraction-free <br>
+              <span class="cyan-gradient-text">visual sanctuary</span> for your browser.
+            </h1>
+
+            <p class="hero-description">
+              Replace sterile blank tabs and algorithmic clutter with handpicked high-definition aesthetics, instant sub-millisecond load times, and an unobtrusive digital clock. Pure focus by design.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary btn-lg trigger-get-started" id="heroPrimaryCta">
+                Get Started
+              </button>
+              <a href="#features" class="text-link" id="heroSecondaryLink">
+                <span>Explore Architecture</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
           </div>
 
-          <h1 class="hero-title">
-            A distraction-free <br>
-            <span class="cyan-gradient-text">visual sanctuary</span> for your browser.
-          </h1>
+          <!-- Interactive Engine Preview HUD (Full Width Balanced Console) -->
+          <div class="hero-preview-hud" aria-label="Live Chrome New Tab Preview">
+            <div class="hud-header">
+              <div class="hud-controls">
+                <span class="hud-dot red"></span>
+                <span class="hud-dot amber"></span>
+                <span class="hud-dot green"></span>
+              </div>
+              <div class="hud-title-bar">
+                <span>chrome://newtab</span>
+              </div>
+              <div class="hud-latency-pill">
+                <span>&lt; 40ms</span>
+              </div>
+            </div>
 
-          <p class="hero-description">
-            Replace sterile blank tabs and algorithmic clutter with handpicked high-definition aesthetics, instant sub-millisecond load times, and an unobtrusive digital clock. Pure focus by design.
-          </p>
+            <div class="hud-body">
+              <div class="hud-clock-wrap">
+                <div class="hud-time" id="hudLiveClock">18:30:00</div>
+                <div class="hud-date" id="hudLiveDate">Wednesday, October 14</div>
+              </div>
 
-          <div class="hero-actions">
-            <button class="btn btn-primary btn-lg trigger-get-started" id="heroPrimaryCta">
-              Get Started
-            </button>
-            <a href="#features" class="text-link" id="heroSecondaryLink">
-              <span>Explore Architecture</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
+              <div class="hud-realms-wrap" aria-label="Curated Aesthetic Realms">
+                <button class="hud-realm-chip" data-realm="nature">Nature</button>
+                <button class="hud-realm-chip" data-realm="space">Space</button>
+                <button class="hud-realm-chip active" data-realm="tech">Technology</button>
+              </div>
+
+              <div class="hud-footer-metrics">
+                <div class="hud-metric-item">
+                  <span class="hud-metric-val">0 KB</span>
+                  <span class="hud-metric-lbl">Telemetry</span>
+                </div>
+                <div class="hud-metric-item">
+                  <span class="hud-metric-val">100%</span>
+                  <span class="hud-metric-lbl">Local Cache</span>
+                </div>
+                <div class="hud-metric-item">
+                  <span class="hud-metric-val">Instant</span>
+                  <span class="hud-metric-lbl">Cold Boot</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

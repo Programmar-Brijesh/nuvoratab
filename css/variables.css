@@ -26,10 +26,10 @@
   --accent-emerald: #10b981;
 
   /* Spacing */
-  --nav-height: 68px;
-  --max-width: 1120px;
-  --max-width-narrow: 860px;
-  --section-padding: clamp(4.5rem, 8vw, 7.5rem);
+  --nav-height: 72px;
+  --max-width: 1400px;
+  --max-width-narrow: 1080px;
+  --section-padding: clamp(3.5rem, 6vw, 6rem);
 
   /* Border Radii - Restrained & Sharp */
   --radius-xs: 4px;

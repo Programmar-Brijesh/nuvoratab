@@ -154,7 +154,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   };
 
-  // 8. Subtle Scroll Reveal Observer
+  // 8. Live HUD Console Clock & Realm Switcher
+  const hudClock = document.getElementById('hudLiveClock');
+  const hudDate = document.getElementById('hudLiveDate');
+  if (hudClock && hudDate) {
+    function updateHudTime() {
+      const now = new Date();
+      hudClock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+      hudDate.textContent = now.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
+    }
+    updateHudTime();
+    setInterval(updateHudTime, 1000);
+  }
+
+  const realmChips = document.querySelectorAll('.hud-realm-chip');
+  realmChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      realmChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      if (window.showToast) window.showToast(`Previewing ${chip.textContent} realm`);
+    });
+  });
+
+  // 9. Subtle Scroll Reveal Observer
   const reveals = document.querySelectorAll('.reveal-on-scroll');
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -174,10 +196,10 @@ document.addEventListener('DOMContentLoaded', () => {
     reveals.forEach(el => el.classList.add('visible'));
   }
 
-  // 9. Ambient Canvas Particles System (~25 gentle floating points)
+  // 10. Ambient Canvas Particles System (~18 gentle floating points)
   initAmbientParticles();
 
-  // 10. Subtle Performant Background Parallax
+  // 11. Subtle Performant Background Parallax
   initBackgroundParallax();
 });
 

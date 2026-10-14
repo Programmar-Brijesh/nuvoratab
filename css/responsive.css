@@ -1,6 +1,11 @@
 /* Responsive Adjustments */
 
 @media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
   .about-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
