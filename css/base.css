@@ -53,9 +53,12 @@ body {
   left: -5%;
   width: 110%;
   height: 110%;
-  background: url('../assets/tech_bg.jpg') center center / cover no-repeat;
-  opacity: 0.50;
-  filter: saturate(1.15) brightness(0.95);
+  background-image: url('../assets/tech_bg.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.52;
+  filter: saturate(1.1) brightness(0.95);
   transform: scale(1.02);
   will-change: transform;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -70,8 +73,8 @@ body {
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(ellipse at 50% 20%, rgba(8, 9, 12, 0.65) 0%, rgba(8, 9, 12, 0.88) 55%, rgba(8, 9, 12, 0.97) 100%),
-    linear-gradient(180deg, rgba(8, 9, 12, 0.4) 0%, rgba(8, 9, 12, 0.8) 70%, rgba(8, 9, 12, 0.98) 100%);
+    radial-gradient(ellipse at 50% 30%, rgba(8, 9, 12, 0.42) 0%, rgba(8, 9, 12, 0.72) 65%, rgba(8, 9, 12, 0.90) 100%),
+    linear-gradient(180deg, rgba(8, 9, 12, 0.30) 0%, rgba(8, 9, 12, 0.62) 60%, rgba(8, 9, 12, 0.92) 100%);
   z-index: 2;
 }
 
