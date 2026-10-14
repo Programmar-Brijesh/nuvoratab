@@ -1,0 +1,551 @@
+/* Product Showcase - Interactive Chrome Browser Simulator */
+
+.showcase-wrapper {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Chrome Browser Mockup Window */
+.browser-window {
+  border-radius: var(--radius-lg);
+  background: #11141d;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(79, 172, 254, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Window Chrome Top Header */
+.browser-header {
+  background: #151821;
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.browser-tabs-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.browser-traffic-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.traffic-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.dot-close { background: #ff5f56; }
+.dot-min { background: #ffbd2e; }
+.dot-max { background: #27c93f; }
+
+.browser-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: #1e222d;
+  color: #f1f5f9;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: none;
+  max-width: 200px;
+}
+
+.tab-favicon {
+  width: 14px;
+  height: 14px;
+}
+
+.tab-close {
+  margin-left: auto;
+  color: #64748b;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.browser-tab-plus {
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Address Navigation Bar */
+.browser-nav-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-history-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+}
+
+.browser-address-bar {
+  flex-grow: 1;
+  background: #0b0d13;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  font-family: var(--font-mono);
+}
+
+.address-lock {
+  color: #10b981;
+  width: 14px;
+  height: 14px;
+}
+
+.address-text {
+  color: #f1f5f9;
+}
+
+.address-badge {
+  margin-left: auto;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(79, 172, 254, 0.15);
+  color: var(--accent-cyan);
+}
+
+.browser-extension-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #94a3b8;
+}
+
+.extension-pin-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: var(--gradient-brand);
+  display: grid;
+  place-items: center;
+  color: #07080b;
+}
+
+/* Tab Canvas (New Tab Body) */
+.browser-tab-canvas {
+  position: relative;
+  min-height: 580px;
+  height: 64vh;
+  max-height: 720px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5rem;
+  user-select: none;
+}
+
+.sim-wallpaper-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: opacity 0.8s ease, filter 0.4s ease;
+  z-index: 1;
+}
+
+.sim-wallpaper-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 2;
+  transition: background 0.3s ease;
+}
+
+/* Simulator Canvas Content */
+.sim-content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Tab Top Utilities */
+.sim-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sim-location-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(7, 8, 11, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.8125rem;
+  color: #ffffff;
+}
+
+.sim-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sim-icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(7, 8, 11, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.sim-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
+}
+
+/* Center Clock & Greeting */
+.sim-center-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto 0;
+  transition: opacity 0.3s ease;
+}
+
+.sim-clock-display {
+  font-family: var(--font-heading);
+  font-size: clamp(3.75rem, 8vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.sim-ampm {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.sim-greeting-date {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #f1f5f9;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+  margin-top: 8px;
+}
+
+/* Search Bar in Simulator */
+.sim-search-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(13, 16, 24, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  width: 100%;
+  max-width: 540px;
+  margin: 1.5rem auto 0 auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transition: all var(--transition-fast);
+}
+
+.sim-search-bar:focus-within {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 20px rgba(79, 172, 254, 0.35);
+}
+
+.sim-search-engine-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sim-search-input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  padding: 6px 12px;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.sim-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Speed Dial Shortcuts */
+.sim-speed-dial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+  transition: opacity 0.3s ease;
+}
+
+.sim-shortcut-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(7, 8, 11, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.sim-shortcut-pill:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Simulator Bottom Controls Bar */
+.sim-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.sim-curated-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(7, 8, 11, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+  color: #cbd5e1;
+}
+
+.sim-curated-info strong {
+  color: #ffffff;
+}
+
+.sim-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sim-control-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(7, 8, 11, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sim-control-pill:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.sim-control-pill.active {
+  background: var(--gradient-brand);
+  color: #07080b;
+  font-weight: 600;
+  border: none;
+}
+
+/* Floating Settings Drawer inside Simulator */
+.sim-settings-drawer {
+  position: absolute;
+  bottom: 80px;
+  right: 24px;
+  width: 320px;
+  background: rgba(11, 14, 21, 0.95);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+  z-index: 10;
+  display: none;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sim-settings-drawer.open {
+  display: flex;
+  animation: drawerSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes drawerSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 10px;
+}
+
+.drawer-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.drawer-close {
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.drawer-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.drawer-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+.drawer-slider {
+  width: 100%;
+  accent-color: var(--accent-cyan);
+  cursor: pointer;
+}
+
+/* Focus Mode Style on Simulator */
+.browser-tab-canvas.focus-mode .sim-center-cluster {
+  opacity: 0.85;
+}
+
+.browser-tab-canvas.focus-mode .sim-search-bar,
+.browser-tab-canvas.focus-mode .sim-speed-dial {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+/* Showcase Surrounding Feature Badges */
+.showcase-feature-badges {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.showcase-badge-card {
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.badge-card-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background: rgba(79, 172, 254, 0.12);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  display: grid;
+  place-items: center;
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+.badge-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.badge-card-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}

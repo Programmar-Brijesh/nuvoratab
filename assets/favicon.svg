@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="brandGrad" x1="4" y1="4" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4facfe"/>
+      <stop offset="50%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="mountainGrad" x1="16" y1="28" x2="48" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#94a3b8" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+  <!-- Browser Frame Background -->
+  <rect x="4" y="6" width="56" height="52" rx="14" fill="#0b0e14" stroke="url(#brandGrad)" stroke-width="2.5"/>
+  <!-- Tab Header Bar -->
+  <path d="M4 18h56" stroke="#1f2937" stroke-width="1.5"/>
+  <circle cx="12" cy="12" r="2.5" fill="#ef4444"/>
+  <circle cx="19" cy="12" r="2.5" fill="#f59e0b"/>
+  <circle cx="26" cy="12" r="2.5" fill="#10b981"/>
+  <!-- Sun / Celestial Orb -->
+  <circle cx="44" cy="27" r="5" fill="url(#brandGrad)"/>
+  <!-- Mountain Silhouette (Wallpaper) -->
+  <path d="M12 48L25 31L34 40L41 33L52 48H12Z" fill="url(#mountainGrad)"/>
+</svg>

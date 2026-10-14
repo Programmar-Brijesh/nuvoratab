@@ -1,0 +1,145 @@
+/* Responsive Layout Adjustments */
+
+@media (max-width: 1024px) {
+  .how-it-works-timeline {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .how-it-works-timeline::before {
+    display: none;
+  }
+
+  .feature-split-row {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .feature-split-row.reverse {
+    direction: ltr;
+  }
+
+  .showcase-feature-badges {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .features-micro-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .lightbox-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    height: 94vh;
+  }
+
+  .lightbox-sidebar {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    max-height: 260px;
+    padding: 1.25rem;
+  }
+
+  .lightbox-main-view {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links, .nav-actions .btn {
+    display: none;
+  }
+
+  .mobile-nav-toggle {
+    display: grid;
+  }
+
+  .hero-preview-bar {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .hero-curated-badge {
+    order: 2;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .gallery-utilities {
+    justify-content: stretch;
+  }
+
+  .gallery-search-box {
+    max-width: 100%;
+  }
+
+  .browser-tab-canvas {
+    min-height: 500px;
+    padding: 1.5rem;
+  }
+
+  .sim-clock-display {
+    font-size: 3.5rem;
+  }
+
+  .sim-speed-dial {
+    display: none;
+  }
+
+  .sim-settings-drawer {
+    right: 12px;
+    left: 12px;
+    width: auto;
+    bottom: 70px;
+  }
+
+  .footer-top-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .lightbox-nav-prev { left: 10px; }
+  .lightbox-nav-next { right: 10px; }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.35rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+
+  .sim-bottom-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sim-controls-group {
+    justify-content: center;
+  }
+
+  .modal-dialog {
+    padding: 1.5rem;
+  }
+}
