@@ -57,8 +57,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 4. Modal System (Get Started, Privacy, Contact)
-  const installModal = document.getElementById('installModal');
+  // 4. Centralized Extension Installation Link
+  // You can customize this URL anytime to point to your Chrome Web Store listing or direct install link
+  const EXTENSION_INSTALL_LINK = 'https://chromewebstore.google.com/';
+
+  document.querySelectorAll('.install-link').forEach(link => {
+    link.href = EXTENSION_INSTALL_LINK;
+  });
+
+  // Modal System (Privacy, Contact)
   const privacyModal = document.getElementById('privacyModal');
   const contactModal = document.getElementById('contactModal');
 
@@ -75,12 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Triggers
-  document.querySelectorAll('.trigger-get-started').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal(installModal);
-    });
-  });
 
   document.querySelectorAll('.trigger-privacy-modal').forEach(btn => {
     btn.addEventListener('click', (e) => {
