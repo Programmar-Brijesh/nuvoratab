@@ -47,21 +47,20 @@ body {
 }
 
 /* Layer 2: Dedicated background image at approximately 50% opacity */
+/* Layer 2: Dedicated background image at approximately 50% opacity */
 .bg-image-layer {
   position: absolute;
-  top: -5%;
-  left: -5%;
-  width: 110%;
-  height: 110%;
+  top: -2%;
+  left: -2%;
+  width: 104%;
+  height: 104%;
   background-image: url('../assets/tech_bg.jpg');
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 0.52;
-  filter: saturate(1.1) brightness(0.95);
-  transform: scale(1.02);
-  will-change: transform;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 0, 0);
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -73,8 +72,9 @@ body {
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(ellipse at 50% 30%, rgba(8, 9, 12, 0.42) 0%, rgba(8, 9, 12, 0.72) 65%, rgba(8, 9, 12, 0.90) 100%),
-    linear-gradient(180deg, rgba(8, 9, 12, 0.30) 0%, rgba(8, 9, 12, 0.62) 60%, rgba(8, 9, 12, 0.92) 100%);
+    radial-gradient(ellipse at 50% 30%, rgba(8, 9, 12, 0.40) 0%, rgba(8, 9, 12, 0.70) 65%, rgba(8, 9, 12, 0.90) 100%),
+    linear-gradient(180deg, rgba(8, 9, 12, 0.25) 0%, rgba(8, 9, 12, 0.60) 60%, rgba(8, 9, 12, 0.92) 100%);
+  pointer-events: none;
   z-index: 2;
 }
 
@@ -85,62 +85,63 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
   z-index: 3;
 }
 
-/* Slowly moving ambient gradient orbs */
+/* Performant ambient lighting - zero heavy blur filters for high FPS */
 .ambient-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(140px);
   pointer-events: none;
-  opacity: 0.16;
+  opacity: 0.22;
+  transform: translate3d(0, 0, 0);
   will-change: transform;
 }
 
 .orb-cyan {
-  width: 600px;
-  height: 500px;
-  top: -100px;
+  width: 550px;
+  height: 550px;
+  top: -120px;
   left: 15%;
-  background: radial-gradient(circle, var(--accent-cyan) 0%, rgba(0, 229, 255, 0.2) 60%, transparent 100%);
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.35) 0%, rgba(0, 229, 255, 0.15) 35%, transparent 70%);
   animation: moveOrbCyan 24s ease-in-out infinite alternate;
 }
 
 .orb-violet {
-  width: 550px;
-  height: 550px;
-  top: 35%;
-  right: 10%;
-  background: radial-gradient(circle, #7c3aed 0%, rgba(124, 58, 237, 0.2) 60%, transparent 100%);
+  width: 500px;
+  height: 500px;
+  top: 30%;
+  right: 8%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.32) 0%, rgba(124, 58, 237, 0.12) 35%, transparent 70%);
   animation: moveOrbViolet 28s ease-in-out infinite alternate;
 }
 
 .orb-blue {
-  width: 500px;
-  height: 450px;
+  width: 480px;
+  height: 480px;
   bottom: 5%;
   left: 20%;
-  background: radial-gradient(circle, #2563eb 0%, rgba(37, 99, 235, 0.2) 60%, transparent 100%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.32) 0%, rgba(37, 99, 235, 0.12) 35%, transparent 70%);
   animation: moveOrbBlue 26s ease-in-out infinite alternate;
 }
 
 @keyframes moveOrbCyan {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(80px, 60px) scale(1.15); }
-  100% { transform: translate(-40px, 100px) scale(0.95); }
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(60px, 40px, 0); }
+  100% { transform: translate3d(-30px, 70px, 0); }
 }
 
 @keyframes moveOrbViolet {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-70px, -50px) scale(1.1); }
-  100% { transform: translate(50px, -80px) scale(0.9); }
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-50px, -40px, 0); }
+  100% { transform: translate3d(40px, -60px, 0); }
 }
 
 @keyframes moveOrbBlue {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(60px, -40px) scale(1.08); }
-  100% { transform: translate(-50px, -30px) scale(1); }
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(40px, -30px, 0); }
+  100% { transform: translate3d(-40px, -20px, 0); }
 }
 
 /* Subtle Animated Technical Grid */

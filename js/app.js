@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Ambient Particles Canvas
- * Lightweight floating points with gentle alpha oscillation
+ * Ultra-lightweight floating points (zero expensive shadowBlur for 60 FPS)
  */
 function initAmbientParticles() {
   const canvas = document.getElementById('ambientCanvas');
@@ -192,7 +192,7 @@ function initAmbientParticles() {
   const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (isReducedMotion) return;
 
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { alpha: true });
   if (!ctx) return;
 
   let width = (canvas.width = window.innerWidth);
@@ -207,18 +207,18 @@ function initAmbientParticles() {
     resizeTimeout = setTimeout(() => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-    }, 150);
+    }, 200);
   }, { passive: true });
 
-  // Sparingly used particles (24 total particles for ultra-clean minimalism)
-  const particleCount = 24;
+  // 18 gentle particles for ultra-low CPU footprint
+  const particleCount = 18;
   const particles = [];
 
   const colorPalette = [
     { r: 0, g: 229, b: 255 },    // Cyan
     { r: 147, g: 197, b: 253 },  // Soft Ice Blue
     { r: 167, g: 139, b: 250 },  // Soft Violet
-    { r: 240, g: 246, b: 252 }   // Crisp Tech White
+    { r: 255, g: 255, b: 255 }   // Crisp Tech White
   ];
 
   for (let i = 0; i < particleCount; i++) {
@@ -226,11 +226,11 @@ function initAmbientParticles() {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 1.4 + 0.8,
-      vx: (Math.random() - 0.5) * 0.12,
-      vy: -(Math.random() * 0.22 + 0.12), // Gentle upward drift
-      baseAlpha: Math.random() * 0.25 + 0.12,
-      pulseSpeed: Math.random() * 0.025 + 0.015,
+      radius: Math.random() * 1.3 + 0.8,
+      vx: (Math.random() - 0.5) * 0.1,
+      vy: -(Math.random() * 0.2 + 0.1), // Gentle upward drift
+      baseAlpha: Math.random() * 0.3 + 0.15,
+      pulseSpeed: Math.random() * 0.02 + 0.012,
       pulsePhase: Math.random() * Math.PI * 2,
       color: color
     });
@@ -244,25 +244,20 @@ function initAmbientParticles() {
     for (let i = 0; i < particleCount; i++) {
       const p = particles[i];
 
-      // Update positions
       p.x += p.vx;
       p.y += p.vy;
       p.pulsePhase += p.pulseSpeed;
 
-      // Wrap-around screen bounds
       if (p.y < -10) p.y = height + 10;
       if (p.x < -10) p.x = width + 10;
       if (p.x > width + 10) p.x = -10;
 
-      // Smooth alpha pulsing
-      const alpha = p.baseAlpha * (0.65 + 0.35 * Math.sin(p.pulsePhase));
+      const alpha = p.baseAlpha * (0.7 + 0.3 * Math.sin(p.pulsePhase));
 
-      // Draw subtle glow point
+      // Fast, lightweight circle drawing with zero shadowBlur
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${alpha})`;
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${alpha * 0.8})`;
       ctx.fill();
     }
 
@@ -287,13 +282,13 @@ function initAmbientParticles() {
 
 /**
  * Subtle Background Parallax
- * Gently offsets background image and ambient orbs based on mouse and scroll
+ * Hardware-accelerated translate3d transforms only (zero layout reflows)
  */
 function initBackgroundParallax() {
   const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (isReducedMotion) return;
 
-  // Disable on mobile or touch-primary devices to maintain peak performance
+  // Disable on mobile or touch-primary devices
   if (window.innerWidth < 768 || window.matchMedia('(hover: none)').matches) return;
 
   const bgImage = document.getElementById('bgImageLayer');
@@ -307,7 +302,6 @@ function initBackgroundParallax() {
   let isMoving = false;
 
   window.addEventListener('mousemove', (e) => {
-    // Normalized coordinates (-1 to 1)
     mouseX = (e.clientX / window.innerWidth) * 2 - 1;
     mouseY = (e.clientY / window.innerHeight) * 2 - 1;
 
@@ -318,23 +312,21 @@ function initBackgroundParallax() {
   }, { passive: true });
 
   function updateParallax() {
-    // Smooth lerp interpolation
-    currentX += (mouseX - currentX) * 0.04;
-    currentY += (mouseY - currentY) * 0.04;
+    currentX += (mouseX - currentX) * 0.05;
+    currentY += (mouseY - currentY) * 0.05;
 
-    const maxImageShift = 8; // Max 8px shift for subtle sophistication
-    const maxMeshShift = 14;
+    const maxImageShift = 8;
+    const maxMeshShift = 12;
 
     if (bgImage) {
-      bgImage.style.transform = `scale(1.02) translate3d(${currentX * -maxImageShift}px, ${currentY * -maxImageShift}px, 0)`;
+      bgImage.style.transform = `translate3d(${currentX * -maxImageShift}px, ${currentY * -maxImageShift}px, 0)`;
     }
 
     if (bgMesh) {
       bgMesh.style.transform = `translate3d(${currentX * maxMeshShift}px, ${currentY * maxMeshShift}px, 0)`;
     }
 
-    // Continue animation loop if still interpolating
-    if (Math.abs(mouseX - currentX) > 0.001 || Math.abs(mouseY - currentY) > 0.001) {
+    if (Math.abs(mouseX - currentX) > 0.002 || Math.abs(mouseY - currentY) > 0.002) {
       requestAnimationFrame(updateParallax);
     } else {
       isMoving = false;
