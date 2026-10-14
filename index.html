@@ -3,20 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Premium Wallpaper Tab — Minimalist Focus for Chrome New Tab</title>
+  <title>NuvoraTab — Minimalist Focus for Chrome New Tab</title>
   
   <!-- SEO & OpenGraph Metadata -->
   <meta name="description" content="A minimal, distraction-free new-tab experience for Chrome. Replaces blank pages and algorithmic clutter with curated high-definition aesthetics, sub-millisecond speeds, and an unobtrusive digital clock.">
-  <meta name="keywords" content="chrome extension, minimal new tab, developer new tab, distraction free, 4k wallpaper tab, minimalist startpage">
-  <meta name="author" content="Premium Wallpaper Tab">
-  <meta property="og:title" content="Premium Wallpaper Tab — Minimalist Focus for Chrome">
+  <meta name="keywords" content="NuvoraTab, chrome extension, minimal new tab, developer new tab, distraction free, 4k wallpaper tab, minimalist startpage">
+  <meta name="author" content="NuvoraTab">
+  <meta property="og:title" content="NuvoraTab — Minimalist Focus for Chrome">
   <meta property="og:description" content="Clean typography, precise spacing, and intentional calm on every new tab. Built for modern creators and engineers.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
   <meta name="theme-color" content="#08090c">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <!-- Favicon & Touch Icons -->
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
 
   <!-- Clean Google Fonts (Outfit & Plus Jakarta Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,16 +52,9 @@
   <!-- 1. MINIMAL NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="container nav-container">
-      <a href="#hero" class="brand-logo" aria-label="Premium Wallpaper Tab">
-        <div class="brand-icon">
-          <svg viewBox="0 0 64 64" fill="none">
-            <path d="M32 10L52 22V42L32 54L12 42V22L32 10Z" fill="#0e1017" stroke="var(--accent-cyan)" stroke-width="3"/>
-            <path d="M32 10L32 32L52 42" stroke="var(--accent-cyan)" stroke-width="2"/>
-            <path d="M32 32L12 42" stroke="var(--accent-cyan)" stroke-width="2"/>
-            <circle cx="32" cy="32" r="4" fill="#00e5ff"/>
-          </svg>
-        </div>
-        <span>Premium Wallpaper Tab</span>
+      <a href="#hero" class="brand-logo" aria-label="NuvoraTab">
+        <img src="./NuvoraTab.png" alt="NuvoraTab logo" class="brand-logo-img">
+        <span>NuvoraTab</span>
       </a>
 
       <!-- Navigation Links -->
@@ -96,6 +92,12 @@
 
   <!-- Mobile Drawer -->
   <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Navigation Drawer">
+    <div class="mobile-drawer-brand">
+      <a href="#hero" class="brand-logo" aria-label="NuvoraTab">
+        <img src="./NuvoraTab.png" alt="NuvoraTab logo" class="brand-logo-img">
+        <span>NuvoraTab</span>
+      </a>
+    </div>
     <ul class="mobile-nav-links">
       <li><a href="#about" class="mobile-nav-link">About</a></li>
       <li><a href="#features" class="mobile-nav-link">Features</a></li>
@@ -210,7 +212,7 @@
               The average engineer or knowledge worker opens more than 80 browser tabs every day. Standard new-tab pages exploit this moment with sponsored shortcuts, telemetry trackers, and distracting feeds.
             </p>
             <p>
-              <strong>Premium Wallpaper Tab</strong> eliminates the noise. It treats every new tab as a brief visual pause — delivering balanced high-definition scenery, local hardware time, and fast access to your workflow without tracking a single byte of your data.
+              <strong>NuvoraTab</strong> eliminates the noise. It treats every new tab as a brief visual pause — delivering balanced high-definition scenery, local hardware time, and fast access to your workflow without tracking a single byte of your data.
             </p>
           </div>
         </div>
@@ -341,9 +343,9 @@
           <!-- Step 1 -->
           <div class="step-card">
             <div class="step-index-pill">01</div>
-            <h3 class="step-title">Add via Link</h3>
+            <h3 class="step-title">Add to Chrome</h3>
             <p class="step-desc">
-              Click the direct install link to add the lightweight extension to Chrome with a single click. Zero manual setup or permissions needed.
+              Visit the extension listing and choose Add to Chrome to install the extension into your browser.
             </p>
           </div>
 
@@ -381,14 +383,14 @@
           <!-- FAQ 1 -->
           <div class="faq-item active">
             <button class="faq-trigger" aria-expanded="true">
-              <span>What is Premium Wallpaper Tab?</span>
+              <span>What is NuvoraTab?</span>
               <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m6 9 6 6 6-6"/>
               </svg>
             </button>
             <div class="faq-content">
               <p class="faq-answer">
-                It is a minimal, lightweight new-tab extension for Google Chrome. It replaces the default blank page with curated high-definition aesthetics, an unobtrusive digital clock, and clean speed-dial shortcuts.
+                NuvoraTab is a minimal, lightweight new-tab extension for Google Chrome. It replaces the default blank page with curated high-definition aesthetics, an unobtrusive digital clock, and clean speed-dial shortcuts.
               </p>
             </div>
           </div>
@@ -489,14 +491,9 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-top">
-        <a href="#hero" class="brand-logo" aria-label="Premium Wallpaper Tab">
-          <div class="brand-icon">
-            <svg viewBox="0 0 64 64" fill="none">
-              <path d="M32 10L52 22V42L32 54L12 42V22L32 10Z" fill="#0e1017" stroke="var(--accent-cyan)" stroke-width="3"/>
-              <circle cx="32" cy="32" r="4" fill="#00e5ff"/>
-            </svg>
-          </div>
-          <span>Premium Wallpaper Tab</span>
+        <a href="#hero" class="brand-logo" aria-label="NuvoraTab">
+          <img src="./NuvoraTab.png" alt="NuvoraTab logo" class="brand-logo-img">
+          <span>NuvoraTab</span>
         </a>
 
         <ul class="footer-links">
@@ -510,7 +507,7 @@
       </div>
 
       <div class="footer-bottom">
-        <span>&copy; 2026 Premium Wallpaper Tab. All rights reserved.</span>
+        <span>&copy; 2026 NuvoraTab. All rights reserved.</span>
         <button class="back-to-top" id="backToTopBtn" aria-label="Back to top of page">
           <span>Top</span>
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
@@ -530,7 +527,7 @@
       <div class="modal-header">
         <span class="modal-tag">Installation</span>
         <h3 class="modal-title">Get Started in 30 Seconds</h3>
-        <p class="modal-desc">Experience Premium Wallpaper Tab in Google Chrome.</p>
+        <p class="modal-desc">Experience NuvoraTab in Google Chrome.</p>
       </div>
 
       <div class="install-steps">

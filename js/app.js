@@ -3,6 +3,15 @@
  * Pure Vanilla JavaScript (Zero External Dependencies)
  */
 
+/**
+ * Centralized Chrome Extension Installation URL
+ *
+ * NOTE: 'https://chromewebstore.google.com/' is currently a PLACEHOLDER.
+ * Update this URL to your published Chrome Web Store listing URL before release.
+ * Do not invent a fake extension ID or path.
+ */
+const EXTENSION_INSTALL_LINK = 'https://chromewebstore.google.com/';
+
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Sticky Navbar Scroll State
   const navbar = document.getElementById('navbar');
@@ -57,12 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 4. Centralized Extension Installation Link
-  // You can customize this URL anytime to point to your Chrome Web Store listing or direct install link
-  const EXTENSION_INSTALL_LINK = 'https://chromewebstore.google.com/';
-
+  // 4. Centralized Extension Installation Link Binding
   document.querySelectorAll('.install-link').forEach(link => {
     link.href = EXTENSION_INSTALL_LINK;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
   });
 
   // Modal System (Privacy, Contact)

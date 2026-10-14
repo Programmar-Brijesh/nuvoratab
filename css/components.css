@@ -30,28 +30,31 @@
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.01em;
+  transition: color var(--transition-fast);
 }
 
-.brand-icon {
-  width: 28px;
-  height: 28px;
+.brand-logo:hover {
+  color: #ffffff;
+}
+
+.brand-logo-img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
   border-radius: var(--radius-xs);
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-medium);
-  display: grid;
-  place-items: center;
-  color: var(--accent-cyan);
+  display: block;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
 }
 
-.brand-icon svg {
-  width: 16px;
-  height: 16px;
+.brand-logo:hover .brand-logo-img {
+  transform: scale(1.04);
 }
 
 .nav-links {
@@ -132,6 +135,13 @@
   transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
+}
+
+.mobile-drawer-brand {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .mobile-nav-links {
