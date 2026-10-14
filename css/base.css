@@ -1,4 +1,4 @@
-/* Base Reset, Background Grid & Typography */
+/* Base Reset, Layered Background System & Typography */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -22,37 +22,160 @@ body {
   position: relative;
   background-color: var(--bg-page);
   color: var(--text-primary);
+  overflow-x: hidden;
 }
 
-/* Subtle Technical Background Grid (Pure CSS - No Images) */
-.tech-grid-bg {
+/* ========================================================
+   BACKGROUND LAYERING SYSTEM (Order: 1 to 5)
+   1. Base near-black background (#08090c)
+   2. Background image at ~50% opacity
+   3. Dark overlay for contrast
+   4. Animated gradients and subtle technical effects
+   5. Website content & navigation
+   ======================================================== */
+
+.bg-system {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   z-index: 0;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(circle at 50% 20%, black 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at 50% 20%, black 30%, transparent 80%);
+  overflow: hidden;
+  background: var(--bg-page);
 }
 
-/* Ambient Radial Accent Light (Pure CSS) */
-.ambient-top-light {
-  position: fixed;
-  top: -150px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 720px;
-  height: 400px;
-  background: radial-gradient(ellipse at center, rgba(0, 229, 255, 0.08) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
+/* Layer 2: Dedicated background image at approximately 50% opacity */
+.bg-image-layer {
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  background: url('../assets/tech_bg.jpg') center center / cover no-repeat;
+  opacity: 0.50;
+  filter: saturate(1.15) brightness(0.95);
+  transform: scale(1.02);
+  will-change: transform;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
 }
+
+/* Layer 3: Dark contrast overlay to guarantee sharp text readability */
+.bg-contrast-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at 50% 20%, rgba(8, 9, 12, 0.65) 0%, rgba(8, 9, 12, 0.88) 55%, rgba(8, 9, 12, 0.97) 100%),
+    linear-gradient(180deg, rgba(8, 9, 12, 0.4) 0%, rgba(8, 9, 12, 0.8) 70%, rgba(8, 9, 12, 0.98) 100%);
+  z-index: 2;
+}
+
+/* Layer 4: Animated moving gradient lighting & subtle technical effects */
+.bg-animated-mesh {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+/* Slowly moving ambient gradient orbs */
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  pointer-events: none;
+  opacity: 0.16;
+  will-change: transform;
+}
+
+.orb-cyan {
+  width: 600px;
+  height: 500px;
+  top: -100px;
+  left: 15%;
+  background: radial-gradient(circle, var(--accent-cyan) 0%, rgba(0, 229, 255, 0.2) 60%, transparent 100%);
+  animation: moveOrbCyan 24s ease-in-out infinite alternate;
+}
+
+.orb-violet {
+  width: 550px;
+  height: 550px;
+  top: 35%;
+  right: 10%;
+  background: radial-gradient(circle, #7c3aed 0%, rgba(124, 58, 237, 0.2) 60%, transparent 100%);
+  animation: moveOrbViolet 28s ease-in-out infinite alternate;
+}
+
+.orb-blue {
+  width: 500px;
+  height: 450px;
+  bottom: 5%;
+  left: 20%;
+  background: radial-gradient(circle, #2563eb 0%, rgba(37, 99, 235, 0.2) 60%, transparent 100%);
+  animation: moveOrbBlue 26s ease-in-out infinite alternate;
+}
+
+@keyframes moveOrbCyan {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(80px, 60px) scale(1.15); }
+  100% { transform: translate(-40px, 100px) scale(0.95); }
+}
+
+@keyframes moveOrbViolet {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-70px, -50px) scale(1.1); }
+  100% { transform: translate(50px, -80px) scale(0.9); }
+}
+
+@keyframes moveOrbBlue {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, -40px) scale(1.08); }
+  100% { transform: translate(-50px, -30px) scale(1); }
+}
+
+/* Subtle Animated Technical Grid */
+.bg-tech-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, rgba(0, 0, 0, 0.6) 60%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, rgba(0, 0, 0, 0.6) 60%, transparent 85%);
+  animation: gridBreathe 12s ease-in-out infinite alternate;
+}
+
+@keyframes gridBreathe {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Layer 4 (Part 3): Sparingly used gentle glowing points / particles canvas */
+.bg-particles-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ========================================================
+   TYPOGRAPHY & SELECTION
+   ======================================================== */
 
 ::selection {
   background: rgba(0, 229, 255, 0.25);
@@ -69,12 +192,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.16);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.28);
 }
 
 /* Typography Defaults */
@@ -119,7 +242,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   margin: 0 auto;
   padding: 0 clamp(1.25rem, 4vw, 2.5rem);
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 .container-narrow {
@@ -128,13 +251,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   margin: 0 auto;
   padding: 0 clamp(1.25rem, 4vw, 2rem);
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 .section {
   padding: var(--section-padding) 0;
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 .section-header {
@@ -191,6 +314,19 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   background-clip: text;
 }
 
+/* Scroll reveal helper class */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -199,5 +335,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .orb-cyan, .orb-violet, .orb-blue, .bg-tech-grid {
+    animation: none !important;
+  }
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

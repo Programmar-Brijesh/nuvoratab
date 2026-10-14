@@ -33,9 +33,18 @@
 </head>
 <body>
 
-  <!-- Subtle CSS-Generated Technical Grid Background (Zero Images) -->
-  <div class="tech-grid-bg" aria-hidden="true"></div>
-  <div class="ambient-top-light" aria-hidden="true"></div>
+  <!-- 5-Layer Futuristic Background Architecture -->
+  <div class="bg-system" aria-hidden="true">
+    <div class="bg-image-layer" id="bgImageLayer"></div>
+    <div class="bg-contrast-overlay"></div>
+    <div class="bg-animated-mesh" id="bgAnimatedMesh">
+      <div class="ambient-orb orb-cyan"></div>
+      <div class="ambient-orb orb-violet"></div>
+      <div class="ambient-orb orb-blue"></div>
+    </div>
+    <div class="bg-tech-grid"></div>
+    <canvas id="ambientCanvas" class="bg-particles-canvas"></canvas>
+  </div>
 
   <!-- 1. MINIMAL NAVBAR -->
   <header class="navbar" id="navbar">
@@ -127,7 +136,7 @@
     </section>
 
     <!-- 3. ABOUT THE PRODUCT -->
-    <section class="section" id="about">
+    <section class="section reveal-on-scroll" id="about">
       <div class="container">
         <div class="about-grid">
           <div>
@@ -170,7 +179,7 @@
     </section>
 
     <!-- 4. CORE FEATURES (COMPACT GRID) -->
-    <section class="section" id="features">
+    <section class="section reveal-on-scroll" id="features">
       <div class="container">
         <header class="section-header">
           <span class="section-tag">Capabilities</span>
@@ -259,7 +268,7 @@
     </section>
 
     <!-- 5. HOW IT WORKS -->
-    <section class="section" id="how-it-works">
+    <section class="section reveal-on-scroll" id="how-it-works">
       <div class="container">
         <header class="section-header">
           <span class="section-tag">Workflow</span>
@@ -301,7 +310,7 @@
     </section>
 
     <!-- 6. FAQ ACCORDION -->
-    <section class="section" id="faq">
+    <section class="section reveal-on-scroll" id="faq">
       <div class="container-narrow">
         <header class="section-header center">
           <span class="section-tag">Questions</span>
@@ -389,7 +398,7 @@
     </section>
 
     <!-- 7. FINAL CTA -->
-    <section class="section" id="cta">
+    <section class="section reveal-on-scroll" id="cta">
       <div class="container">
         <div class="cta-box">
           <span class="section-tag">Get Started</span>

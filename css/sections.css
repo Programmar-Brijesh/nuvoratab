@@ -1,5 +1,17 @@
 /* Sections: Hero, About, Features, How It Works, FAQ, Final CTA, Footer */
 
+/* Hero Entrance Keyframes */
+@keyframes heroEntranceFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* 2. Hero Section */
 .hero-section {
   position: relative;
@@ -25,6 +37,7 @@
   font-size: 0.8125rem;
   font-family: var(--font-mono);
   margin-bottom: 1.75rem;
+  animation: heroEntranceFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .hero-title {
@@ -35,6 +48,7 @@
   color: var(--text-primary);
   margin-bottom: 1.5rem;
   text-wrap: balance;
+  animation: heroEntranceFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
 }
 
 .hero-description {
@@ -44,6 +58,7 @@
   max-width: 640px;
   margin-bottom: 2.5rem;
   text-wrap: balance;
+  animation: heroEntranceFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
 }
 
 .hero-actions {
@@ -51,6 +66,7 @@
   align-items: center;
   gap: 1.75rem;
   flex-wrap: wrap;
+  animation: heroEntranceFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 }
 
 /* 3. About the Product (Editorial Layout) */
@@ -125,12 +141,14 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .feature-box:hover {
-  border-color: var(--border-highlight);
+  border-color: rgba(0, 229, 255, 0.35);
   background: var(--bg-surface-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35), 0 0 16px rgba(0, 229, 255, 0.08);
 }
 
 .feature-icon-wrap {

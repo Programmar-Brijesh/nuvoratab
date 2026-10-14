@@ -65,11 +65,28 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-secondary);
+  position: relative;
   transition: color var(--transition-fast);
 }
 
 .nav-link:hover {
-  color: var(--text-primary);
+  color: #ffffff;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 6px var(--accent-cyan);
+  transition: width var(--transition-fast);
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 .nav-actions {
@@ -153,9 +170,10 @@
 }
 
 .btn-primary:hover {
-  background: #e2e8f0;
-  border-color: #e2e8f0;
+  background: #ffffff;
+  border-color: #ffffff;
   transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.35);
 }
 
 .btn-secondary {
@@ -166,9 +184,10 @@
 
 .btn-secondary:hover {
   background: var(--bg-surface-hover);
-  border-color: var(--border-highlight);
+  border-color: rgba(0, 229, 255, 0.4);
   color: #ffffff;
   transform: translateY(-1px);
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.15);
 }
 
 .btn-lg {
