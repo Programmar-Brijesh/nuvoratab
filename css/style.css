@@ -1,14 +1,7 @@
-/* Premium Wallpaper Tab - Master Stylesheet
-   Relative imports for seamless GitHub Pages deployment */
+/* Premium Wallpaper Tab - Minimal Tech Stylesheet */
 @import './variables.css';
 @import './base.css';
 @import './components.css';
-@import './hero.css';
-@import './gallery.css';
-@import './showcase.css';
-@import './features.css';
-@import './how-it-works.css';
-@import './story-faq.css';
-@import './lightbox.css';
+@import './sections.css';
 @import './modals.css';
 @import './responsive.css';

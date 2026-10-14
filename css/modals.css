@@ -1,4 +1,4 @@
-/* Modals & Dialogs (Get Started, Privacy, Contact) */
+/* Minimalist Dialogs & Toast Notifications */
 
 .modal-backdrop {
   position: fixed;
@@ -6,10 +6,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1050;
-  background: rgba(4, 5, 8, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  z-index: 1000;
+  background: rgba(6, 7, 10, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,17 +25,17 @@
 }
 
 .modal-dialog {
-  background: #0d1019;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-xl);
-  max-width: 620px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  max-width: 540px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(79, 172, 254, 0.15);
-  padding: clamp(2rem, 4vw, 2.75rem);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  padding: clamp(1.75rem, 4vw, 2.5rem);
   position: relative;
-  transform: translateY(20px) scale(0.97);
+  transform: translateY(14px) scale(0.98);
   transition: transform var(--transition-base);
 }
 
@@ -45,12 +45,12 @@
 
 .modal-close-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
+  top: 18px;
+  right: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-xs);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-subtle);
   color: var(--text-muted);
   display: grid;
@@ -60,130 +60,130 @@
 }
 
 .modal-close-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
 }
 
 .modal-header {
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
 }
 
-.modal-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
-  background: rgba(79, 172, 254, 0.1);
-  border: 1px solid rgba(79, 172, 254, 0.3);
-  color: var(--accent-cyan);
+.modal-tag {
   font-size: 0.75rem;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--accent-cyan);
   text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 .modal-title {
-  font-size: 1.85rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #ffffff;
-  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
-.modal-subtitle {
-  font-size: 0.95rem;
+.modal-desc {
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  margin-top: 0.5rem;
-  line-height: 1.55;
+  margin-top: 0.35rem;
+  line-height: 1.5;
 }
 
-/* Modal Body Steps */
-.install-steps-list {
+/* Install Steps List */
+.install-steps {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
   margin: 1.5rem 0;
 }
 
-.install-step-item {
+.install-step {
   display: flex;
   gap: 1rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  padding: 1rem;
 }
 
-.install-step-num {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--gradient-brand);
-  color: #07080b;
-  font-weight: 800;
+.install-num {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  font-size: 0.9rem;
 }
 
-.install-step-content {
+.install-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
-.install-step-title {
-  font-size: 1rem;
+.install-heading {
+  font-size: 0.925rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
-.install-step-desc {
-  font-size: 0.875rem;
+.install-text {
+  font-size: 0.825rem;
   color: var(--text-secondary);
   line-height: 1.5;
 }
 
-/* Contact Form Elements */
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+.install-text code {
+  font-family: var(--font-mono);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 0.8em;
 }
 
+/* Form Styles */
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  margin-bottom: 1rem;
 }
 
 .form-label {
   font-size: 0.8125rem;
-  font-weight: 600;
-  color: #cbd5e1;
+  font-weight: 500;
+  color: var(--text-secondary);
 }
 
 .form-input, .form-textarea {
   width: 100%;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  color: #ffffff;
+  background: var(--bg-page);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xs);
+  padding: 8px 12px;
+  color: var(--text-primary);
   font-family: inherit;
-  font-size: 0.9rem;
-  transition: all var(--transition-fast);
+  font-size: 0.875rem;
+  transition: border-color var(--transition-fast);
 }
 
 .form-input:focus, .form-textarea:focus {
   border-color: var(--accent-cyan);
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .form-textarea {
   resize: vertical;
-  min-height: 110px;
+  min-height: 90px;
 }
 
 /* Toast Notifications */
@@ -194,7 +194,7 @@
   z-index: 2000;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   pointer-events: none;
 }
 
@@ -202,19 +202,17 @@
   pointer-events: auto;
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: rgba(13, 16, 24, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--radius-md);
-  padding: 12px 18px;
+  gap: 10px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
   color: #ffffff;
-  font-size: 0.875rem;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7), 0 0 20px rgba(79, 172, 254, 0.2);
-  transform: translateY(20px);
+  font-size: 0.85rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(12px);
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .toast.show {
@@ -222,9 +220,10 @@
   opacity: 1;
 }
 
-.toast-icon {
-  width: 20px;
-  height: 20px;
-  color: var(--accent-cyan);
+.toast-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
   flex-shrink: 0;
 }
