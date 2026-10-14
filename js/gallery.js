@@ -123,7 +123,7 @@ window.GalleryController = {
             <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           </div>
           <h3 class="gallery-empty-title">No matching wallpapers found</h3>
-          <p class="gallery-empty-desc">We couldn't find any wallpapers matching "${this.searchQuery}". Try a different keyword like "aurora", "mountain", or "space".</p>
+          <p class="gallery-empty-desc">We couldn't find any wallpapers matching "${this.searchQuery}". Try a keyword like "aurora", "dune", or "nebula".</p>
           <button class="btn btn-secondary btn-sm" id="resetGalleryFilterBtn">Reset Filters</button>
         </div>
       `;
@@ -153,10 +153,10 @@ window.GalleryController = {
             <img 
               class="wallpaper-thumb image-loading" 
               src="${w.previewUrl}" 
-              alt="${w.title} - 4K wallpaper by ${w.author}"
+              alt="${w.title} - ${w.resolution}"
               loading="lazy"
               onload="this.classList.remove('image-loading'); this.classList.add('image-loaded');"
-              onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'image-error-fallback\\'><span>Image offline</span></div>';"
+              onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'image-error-fallback\\'><span>Artwork Ready</span></div>';"
             />
           </div>
 
@@ -180,12 +180,12 @@ window.GalleryController = {
             
             <div class="card-actions-row">
               <button class="card-action-btn primary-action apply-sim-btn" data-id="${w.id}">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="M6 8h.01M10 8h.01"/></svg>
-                Preview in Tab
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Set Active
               </button>
               <button class="card-action-btn open-lightbox-btn" data-id="${w.id}">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                Details
+                View 4K
               </button>
             </div>
           </div>
@@ -218,7 +218,7 @@ window.GalleryController = {
           e.stopPropagation();
           const wallpaper = window.WallpaperData.getById(id);
           window.ShowcaseController.setWallpaper(wallpaper);
-          window.App.showToast(`Applied "${wallpaper.title}" to Tab Simulator!`);
+          window.App.showToast(`Set "${wallpaper.title}" as active!`);
           const showcaseEl = document.getElementById('showcase');
           if (showcaseEl) {
             showcaseEl.scrollIntoView({ behavior: 'smooth' });

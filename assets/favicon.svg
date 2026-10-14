@@ -1,24 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
-    <linearGradient id="brandGrad" x1="4" y1="4" x2="60" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#4facfe"/>
-      <stop offset="50%" stop-color="#00f2fe"/>
+    <linearGradient id="prismGradient" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="45%" stop-color="#4facfe"/>
+      <stop offset="75%" stop-color="#8a2be2"/>
       <stop offset="100%" stop-color="#c084fc"/>
     </linearGradient>
-    <linearGradient id="mountainGrad" x1="16" y1="28" x2="48" y2="52" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#94a3b8" stop-opacity="0.3"/>
+    <linearGradient id="innerGlow" x1="32" y1="12" x2="32" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
+    <radialGradient id="ambientOrb" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <!-- Browser Frame Background -->
-  <rect x="4" y="6" width="56" height="52" rx="14" fill="#0b0e14" stroke="url(#brandGrad)" stroke-width="2.5"/>
-  <!-- Tab Header Bar -->
-  <path d="M4 18h56" stroke="#1f2937" stroke-width="1.5"/>
-  <circle cx="12" cy="12" r="2.5" fill="#ef4444"/>
-  <circle cx="19" cy="12" r="2.5" fill="#f59e0b"/>
-  <circle cx="26" cy="12" r="2.5" fill="#10b981"/>
-  <!-- Sun / Celestial Orb -->
-  <circle cx="44" cy="27" r="5" fill="url(#brandGrad)"/>
-  <!-- Mountain Silhouette (Wallpaper) -->
-  <path d="M12 48L25 31L34 40L41 33L52 48H12Z" fill="url(#mountainGrad)"/>
+
+  <!-- Ambient Glow Behind -->
+  <circle cx="32" cy="32" r="28" fill="url(#ambientOrb)"/>
+
+  <!-- Outer Rounded Obsidian Base -->
+  <rect x="6" y="6" width="52" height="52" rx="16" fill="#090b10" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5"/>
+
+  <!-- Precision Geometric Prism Structure -->
+  <path d="M32 14L48 24V40L32 50L16 40V24L32 14Z" fill="#121622" stroke="url(#prismGradient)" stroke-width="2" stroke-linejoin="round"/>
+  
+  <!-- Facet Internal Light Rays -->
+  <path d="M32 14L32 32L48 40" stroke="url(#prismGradient)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M32 32L16 40" stroke="url(#prismGradient)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M32 32L32 50" stroke="url(#innerGlow)" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Central Radiant Spark / Photon -->
+  <circle cx="32" cy="32" r="3.5" fill="#ffffff"/>
+  <circle cx="32" cy="32" r="6" stroke="#00f2fe" stroke-width="1" stroke-opacity="0.6"/>
 </svg>

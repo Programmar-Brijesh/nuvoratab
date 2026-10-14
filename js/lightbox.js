@@ -45,7 +45,7 @@ window.LightboxController = {
         const item = this.getCurrent();
         if (item) {
           window.ShowcaseController.setWallpaper(item);
-          window.App.showToast(`Applied "${item.title}" to Tab Simulator!`);
+          window.App.showToast(`Set "${item.title}" as active wallpaper!`);
           this.close();
           const showcaseEl = document.getElementById('showcase');
           if (showcaseEl) showcaseEl.scrollIntoView({ behavior: 'smooth' });
@@ -59,8 +59,8 @@ window.LightboxController = {
       copyBtn.addEventListener('click', () => {
         const item = this.getCurrent();
         if (item) {
-          navigator.clipboard.writeText(item.fullUrl).then(() => {
-            window.App.showToast('Wallpaper 4K image link copied!');
+          navigator.clipboard.writeText(window.location.origin + window.location.pathname + item.fullUrl.replace('./', '')).then(() => {
+            window.App.showToast('4K artwork link copied to clipboard!');
           }).catch(() => {
             window.App.showToast('Link copied to clipboard');
           });
@@ -125,7 +125,6 @@ window.LightboxController = {
     if (desc) desc.textContent = item.description;
     if (author) {
       author.textContent = item.author;
-      author.href = item.authorUrl;
     }
     if (location) location.textContent = item.location;
     if (resolution) resolution.textContent = item.resolution;

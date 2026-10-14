@@ -16,12 +16,12 @@ window.HeroController = {
     const switchBtns = document.querySelectorAll('.hero-switch-btn');
     const scrollIndicator = document.getElementById('heroScrollIndicator');
 
-    // Default to the first featured wallpaper (Luca Bravo Dolomites)
+    // Default to the first featured wallpaper
     this.setWallpaper(window.WallpaperData.wallpapers[0]);
 
-    // Live Category Switcher pills in Hero
+    // Realm Switcher pills in Hero
     switchBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         switchBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const cat = btn.getAttribute('data-hero-category');
@@ -29,7 +29,7 @@ window.HeroController = {
         const randomItem = candidates[Math.floor(Math.random() * candidates.length)];
         this.setWallpaper(randomItem);
 
-        // Also sync soundscape if playing
+        // Also sync soundscape if active
         if (window.SoundscapeManager && window.SoundscapeManager.isPlaying) {
           window.SoundscapeManager.start(cat);
         }
@@ -54,7 +54,7 @@ window.HeroController = {
     if (!wallpaper) return;
     this.currentWallpaper = wallpaper;
 
-    // Crossfade between A and B
+    // Crossfade between Layer A and B
     const incoming = this.activeLayer === 'A' ? this.bgImgB : this.bgImgA;
     const outgoing = this.activeLayer === 'A' ? this.bgImgA : this.bgImgB;
 
@@ -69,15 +69,6 @@ window.HeroController = {
         this.activeLayer = this.activeLayer === 'A' ? 'B' : 'A';
       };
     }
-
-    // Update Curated Info Badge
-    const thumb = document.getElementById('heroCuratedThumb');
-    const title = document.getElementById('heroCuratedTitle');
-    const author = document.getElementById('heroCuratedAuthor');
-
-    if (thumb) thumb.src = wallpaper.previewUrl;
-    if (title) title.textContent = wallpaper.title;
-    if (author) author.textContent = `by ${wallpaper.author}`;
   },
 
   startLivePillTime() {

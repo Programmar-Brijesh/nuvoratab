@@ -12,7 +12,7 @@
   <meta property="og:title" content="Premium Wallpaper Tab — Curated 4K New Tab Experience">
   <meta property="og:description" content="Immerse your daily workflow in serene landscapes, deep cosmos, and cyberpunk aesthetics on every new tab.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80">
+  <meta property="og:image" content="./assets/wallpapers/hero_main.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#07080b">
 
@@ -49,10 +49,19 @@
     <div class="container nav-container">
       <a href="#hero" class="brand-logo" aria-label="Premium Wallpaper Tab Home">
         <div class="brand-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect width="18" height="18" x="3" y="3" rx="4"/>
-            <circle cx="8.5" cy="8.5" r="1.5"/>
-            <path d="m21 15-5-5L5 21"/>
+          <!-- Luxury Geometric Prism Brand Icon -->
+          <svg viewBox="0 0 64 64" fill="none">
+            <path d="M32 10L52 22V42L32 54L12 42V22L32 10Z" fill="#0d111a" stroke="url(#navBrandGrad)" stroke-width="3"/>
+            <path d="M32 10L32 32L52 42" stroke="url(#navBrandGrad)" stroke-width="2"/>
+            <path d="M32 32L12 42" stroke="url(#navBrandGrad)" stroke-width="2"/>
+            <circle cx="32" cy="32" r="4" fill="#00f2fe"/>
+            <defs>
+              <linearGradient id="navBrandGrad" x1="12" y1="10" x2="52" y2="54" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#00f2fe"/>
+                <stop offset="0.5" stop-color="#4facfe"/>
+                <stop offset="1" stop-color="#c084fc"/>
+              </linearGradient>
+            </defs>
           </svg>
         </div>
         <span>Premium Wallpaper Tab</span>
@@ -63,7 +72,7 @@
         <ul class="nav-links">
           <li><a href="#hero" class="nav-link active">Home</a></li>
           <li><a href="#gallery" class="nav-link">Gallery</a></li>
-          <li><a href="#showcase" class="nav-link">Simulator</a></li>
+          <li><a href="#showcase" class="nav-link">Live Workspace</a></li>
           <li><a href="#features" class="nav-link">Features</a></li>
           <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
           <li><a href="#faq" class="nav-link">FAQ</a></li>
@@ -103,7 +112,7 @@
     <ul class="mobile-nav-links">
       <li><a href="#hero" class="mobile-nav-link">Home</a></li>
       <li><a href="#gallery" class="mobile-nav-link">Wallpaper Gallery</a></li>
-      <li><a href="#showcase" class="mobile-nav-link">Interactive Simulator</a></li>
+      <li><a href="#showcase" class="mobile-nav-link">Live Workspace</a></li>
       <li><a href="#features" class="mobile-nav-link">Features</a></li>
       <li><a href="#how-it-works" class="mobile-nav-link">How It Works</a></li>
       <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
@@ -117,10 +126,10 @@
   <main>
     <!-- 2. HERO SECTION -->
     <section class="hero-section" id="hero">
-      <!-- Full-Bleed Wallpaper Crossfading Backgrounds -->
+      <!-- Full-Bleed Wallpaper Crossfading Backgrounds (Local 4K Assets) -->
       <div class="hero-bg-container" aria-hidden="true">
-        <img id="heroBgA" class="hero-bg-image active" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2800&q=90" alt="Cinematic Hero Wallpaper">
-        <img id="heroBgB" class="hero-bg-image fading" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2800&q=90" alt="Cinematic Hero Wallpaper Transition Layer">
+        <img id="heroBgA" class="hero-bg-image active" src="./assets/wallpapers/hero_main.jpg" alt="Cinematic Hero Wallpaper">
+        <img id="heroBgB" class="hero-bg-image fading" src="./assets/wallpapers/nature_1.jpg" alt="Cinematic Hero Wallpaper Transition Layer">
         <div class="hero-overlay"></div>
       </div>
 
@@ -157,17 +166,9 @@
         </div>
       </div>
 
-      <!-- Hero Bottom Preview Bar & Category Live Switcher -->
-      <div class="hero-preview-bar">
-        <div class="hero-curated-badge">
-          <img id="heroCuratedThumb" class="hero-curated-thumb" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=200&q=80" alt="Curated Thumbnail">
-          <div>
-            <div id="heroCuratedTitle" class="hero-curated-title">Misty Alpine Solitude</div>
-            <div id="heroCuratedAuthor" style="font-size: 0.75rem;">by Luca Bravo</div>
-          </div>
-        </div>
-
-        <!-- Live Category Preview Switcher -->
+      <!-- Hero Bottom Realm Selector -->
+      <div class="hero-preview-bar" style="justify-content: center; gap: 2rem;">
+        <!-- Clean Luxury Realm Selector -->
         <div class="hero-switch-pills" role="tablist" aria-label="Hero Wallpaper Realm Selector">
           <button class="hero-switch-btn active" data-hero-category="nature" role="tab">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 14 4-7 4 7"/><path d="m14 14 3 6H7l3-6"/></svg>
@@ -203,7 +204,7 @@
           </div>
           <h2 class="section-title">Infinite Realms of <span class="gradient-text">Pure Inspiration</span></h2>
           <p class="section-description">
-            Filter through handcrafted categories or search specific themes. Every wallpaper is mastered in ultra-high resolution with authentic photographer attribution.
+            Filter through handcrafted categories or search specific themes. Every wallpaper is mastered in ultra-high resolution with authentic creator attribution.
           </p>
         </header>
 
@@ -212,19 +213,19 @@
           <div class="gallery-filter-tabs" role="tablist" aria-label="Gallery category filters">
             <button class="gallery-tab-btn active" data-category="all" role="tab" id="tabAll">
               <span>All Collections</span>
-              <span class="gallery-tab-count">18</span>
+              <span class="gallery-tab-count">9</span>
             </button>
             <button class="gallery-tab-btn" data-category="nature" role="tab" id="tabNature">
               <span>Nature</span>
-              <span class="gallery-tab-count">6</span>
+              <span class="gallery-tab-count">3</span>
             </button>
             <button class="gallery-tab-btn" data-category="space" role="tab" id="tabSpace">
               <span>Space</span>
-              <span class="gallery-tab-count">6</span>
+              <span class="gallery-tab-count">3</span>
             </button>
             <button class="gallery-tab-btn" data-category="technology" role="tab" id="tabTech">
               <span>Technology</span>
-              <span class="gallery-tab-count">6</span>
+              <span class="gallery-tab-count">3</span>
             </button>
           </div>
 
@@ -233,7 +234,7 @@
               <svg class="gallery-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
               </svg>
-              <input type="text" class="gallery-search-input" id="gallerySearchInput" placeholder="Search alpine, nebula, cyber..." aria-label="Search wallpapers">
+              <input type="text" class="gallery-search-input" id="gallerySearchInput" placeholder="Search aurora, nebula, cyber..." aria-label="Search wallpapers">
               <button class="gallery-search-clear" id="gallerySearchClear" aria-label="Clear search input">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
               </button>
@@ -248,17 +249,17 @@
       </div>
     </section>
 
-    <!-- 4. PRODUCT SHOWCASE (INTERACTIVE NEW TAB SIMULATOR) -->
+    <!-- 4. PRODUCT SHOWCASE (INTERACTIVE NEW TAB CANVAS) -->
     <section class="section" id="showcase">
       <div class="container-wide">
         <header class="section-header">
           <div class="section-badge">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/></svg>
-            Interactive Product Demo
+            Interactive Workspace
           </div>
           <h2 class="section-title">Experience Your <span class="gradient-text">Next Tab Today</span></h2>
           <p class="section-description">
-            Test the live new-tab interface right here in your browser. Cycle wallpapers, try the ticking digital clock, toggle distraction-free Zen mode, and tweak dimming sliders.
+            Interact with the live new-tab interface right here. Cycle wallpapers, test the ticking digital clock, toggle distraction-free Zen mode, and tweak dimming sliders.
           </p>
         </header>
 
@@ -294,7 +295,7 @@
                 <div class="browser-address-bar">
                   <svg class="address-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="10" x="5" y="11" rx="2"/><path d="M9 11V7a3 3 0 0 1 6 0v4"/></svg>
                   <span class="address-text">chrome://newtab</span>
-                  <span class="address-badge">Local Extension Simulator</span>
+                  <span class="address-badge">Live Workspace</span>
                 </div>
 
                 <div class="browser-extension-icons">
@@ -309,7 +310,7 @@
             <!-- Tab Canvas Interior -->
             <div class="browser-tab-canvas" id="browserTabCanvas">
               <!-- Live Background Wallpaper -->
-              <img id="simWallpaperBg" class="sim-wallpaper-bg" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2800&q=90" alt="Simulator Tab Wallpaper">
+              <img id="simWallpaperBg" class="sim-wallpaper-bg" src="./assets/wallpapers/nature_1.jpg" alt="Simulator Tab Wallpaper">
               <div id="simWallpaperOverlay" class="sim-wallpaper-overlay"></div>
 
               <!-- Simulator Live UI -->
@@ -318,7 +319,7 @@
                 <div class="sim-top-row">
                   <div class="sim-location-badge" id="simLocationBadge">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                    <span>Dolomites, Italy</span>
+                    <span>Nordic Alpine Fjord</span>
                   </div>
 
                   <div class="sim-quick-actions">
@@ -363,10 +364,6 @@
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/></svg>
                       <span>Dribbble</span>
                     </div>
-                    <div class="sim-shortcut-pill" data-url="https://unsplash.com">
-                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 9V4h4v5h-4zM2 12v8h20v-8h-6v4H8v-4H2z"/></svg>
-                      <span>Unsplash</span>
-                    </div>
                     <div class="sim-shortcut-pill" data-url="https://reddit.com">
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M9 16c1.5 1 4.5 1 6 0"/></svg>
                       <span>Reddit</span>
@@ -377,9 +374,9 @@
                 <!-- Bottom Simulator Controls -->
                 <div class="sim-bottom-row">
                   <div class="sim-curated-info">
-                    <span id="simWallpaperTitle"><strong>Misty Alpine Solitude</strong></span>
+                    <span id="simWallpaperTitle"><strong>Ethereal Emerald Aurora</strong></span>
                     <span>•</span>
-                    <span id="simWallpaperAuthor">Luca Bravo</span>
+                    <span id="simWallpaperAuthor">Studio Nocturne</span>
                   </div>
 
                   <div class="sim-controls-group">
@@ -494,7 +491,7 @@
                 </li>
                 <li class="feature-point-item">
                   <span class="feature-point-check">&#10003;</span>
-                  <span>Authentic photographer attribution and original location tags</span>
+                  <span>Authentic digital creator attribution and location tags</span>
                 </li>
                 <li class="feature-point-item">
                   <span class="feature-point-check">&#10003;</span>
@@ -503,7 +500,7 @@
               </ul>
             </div>
             <div class="feature-media-canvas">
-              <img class="feature-media-image" src="https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=1600&q=85" alt="Lofoten Aurora Nocturne feature">
+              <img class="feature-media-image" src="./assets/wallpapers/nature_1.jpg" alt="Ethereal Emerald Aurora feature">
               <div class="feature-floating-chip">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="color: #10b981;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 <span>4K Ultra HD • Raw Color Depth</span>
@@ -535,7 +532,7 @@
               </ul>
             </div>
             <div class="feature-media-canvas">
-              <img class="feature-media-image" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=85" alt="Carina Cosmic Cliff Nebulae feature">
+              <img class="feature-media-image" src="./assets/wallpapers/space_1.jpg" alt="Deep Stellar Nebula Vortex feature">
               <div class="feature-floating-chip">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent-cyan);"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/></svg>
                 <span>Dynamic Realm Shuffle Ready</span>
@@ -632,7 +629,7 @@
 
     <!-- 7. VISUAL STORYTELLING INTERLUDE -->
     <section class="story-section" id="story">
-      <img class="story-bg-layer" src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=2800&q=90" alt="Milky Way Core Over Atacama Story Banner">
+      <img class="story-bg-layer" src="./assets/wallpapers/space_3.jpg" alt="Celestial Monolith Horizon Story Banner">
       <div class="story-overlay"></div>
 
       <div class="story-content">
@@ -749,7 +746,7 @@
             </button>
             <div class="faq-answer-panel">
               <p class="faq-answer-text">
-                Click any of the <strong>Get Started</strong> buttons on this page to open the quick installation walkthrough. You can test it locally, deploy it to your browser, or bookmark the interactive simulator for instant zen work sessions.
+                Click any of the <strong>Get Started</strong> buttons on this page to open the quick installation walkthrough. You can test it locally, deploy it to your browser, or bookmark the interactive workspace for instant zen work sessions.
               </p>
             </div>
           </div>
@@ -761,7 +758,7 @@
     <section class="final-cta-section" id="cta">
       <div class="container">
         <div class="final-cta-box">
-          <img class="final-cta-bg" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2800&q=90" alt="Final CTA Wallpaper Background">
+          <img class="final-cta-bg" src="./assets/wallpapers/hero_main.jpg" alt="Final CTA Wallpaper Background">
           <div class="final-cta-overlay"></div>
 
           <div class="final-cta-content">
@@ -793,10 +790,19 @@
         <div class="footer-brand-column">
           <a href="#hero" class="brand-logo">
             <div class="brand-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect width="18" height="18" x="3" y="3" rx="4"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <path d="m21 15-5-5L5 21"/>
+              <!-- Luxury Geometric Prism Brand Icon -->
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M32 10L52 22V42L32 54L12 42V22L32 10Z" fill="#0d111a" stroke="url(#footerBrandGrad)" stroke-width="3"/>
+                <path d="M32 10L32 32L52 42" stroke="url(#footerBrandGrad)" stroke-width="2"/>
+                <path d="M32 32L12 42" stroke="url(#footerBrandGrad)" stroke-width="2"/>
+                <circle cx="32" cy="32" r="4" fill="#00f2fe"/>
+                <defs>
+                  <linearGradient id="footerBrandGrad" x1="12" y1="10" x2="52" y2="54" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#00f2fe"/>
+                    <stop offset="0.5" stop-color="#4facfe"/>
+                    <stop offset="1" stop-color="#c084fc"/>
+                  </linearGradient>
+                </defs>
               </svg>
             </div>
             <span>Premium Wallpaper Tab</span>
@@ -812,7 +818,7 @@
           <ul class="footer-links-list">
             <li><a href="#hero" class="footer-link">Home</a></li>
             <li><a href="#gallery" class="footer-link">Gallery Collections</a></li>
-            <li><a href="#showcase" class="footer-link">Browser Simulator</a></li>
+            <li><a href="#showcase" class="footer-link">Live Workspace</a></li>
             <li><a href="#features" class="footer-link">Product Capabilities</a></li>
             <li><a href="#how-it-works" class="footer-link">How It Works</a></li>
           </ul>
@@ -842,7 +848,7 @@
 
       <!-- Footer Bottom Bar -->
       <div class="footer-bottom-bar">
-        <span>&copy; 2026 Premium Wallpaper Tab. All photography credited to respective creators under Unsplash Open License.</span>
+        <span>&copy; 2026 Premium Wallpaper Tab. Curated original 4K digital artworks.</span>
         <button class="footer-back-to-top" id="backToTopBtn">
           <span>Back to Top</span>
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
@@ -864,7 +870,7 @@
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
         </button>
 
-        <img class="lightbox-image" id="lightboxImage" src="" alt="Fullscreen Wallpaper Preview">
+        <img class="lightbox-image" id="lightboxImage" src="" alt="Fullscreen Wallpaper View">
 
         <button class="lightbox-nav-btn lightbox-nav-next" id="lightboxNext" aria-label="Next Wallpaper">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
@@ -884,8 +890,8 @@
 
           <div class="lightbox-specs-list">
             <div class="lightbox-spec-item">
-              <span class="lightbox-spec-label">Photographer</span>
-              <span class="lightbox-spec-val"><a id="lightboxAuthor" href="#" target="_blank" rel="noopener">Author</a></span>
+              <span class="lightbox-spec-label">Artist Studio</span>
+              <span class="lightbox-spec-val" id="lightboxAuthor">Studio</span>
             </div>
             <div class="lightbox-spec-item">
               <span class="lightbox-spec-label">Location</span>
@@ -900,10 +906,10 @@
 
         <div class="lightbox-actions-panel">
           <button class="btn btn-primary lightbox-action-btn" id="lightboxApplySim">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="M6 8h.01M10 8h.01"/></svg>
-            Preview in Tab Simulator
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Set as Active Wallpaper
           </button>
-          <a class="btn btn-secondary lightbox-action-btn" id="lightboxDownload" href="#" target="_blank" rel="noopener">
+          <a class="btn btn-secondary lightbox-action-btn" id="lightboxDownload" href="#" download>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
             Download 4K Image
           </a>
@@ -930,8 +936,8 @@
         <div class="install-step-item">
           <div class="install-step-num">1</div>
           <div class="install-step-content">
-            <div class="install-step-title">Interactive Live Simulator</div>
-            <div class="install-step-desc">Test all features directly in our on-page simulator with realistic clock, search, and wallpaper shuffle.</div>
+            <div class="install-step-title">Interactive Live Workspace</div>
+            <div class="install-step-desc">Experience all features directly on this page with realistic clock, search, and wallpaper shuffle.</div>
           </div>
         </div>
 
@@ -953,7 +959,7 @@
       </div>
 
       <button class="btn btn-primary" style="width: 100%;" onclick="document.getElementById('installModal').classList.remove('open'); document.body.style.overflow=''; document.getElementById('showcase').scrollIntoView({behavior:'smooth'});">
-        Try Simulator Now
+        Launch Live Workspace
       </button>
     </div>
   </div>
@@ -971,7 +977,7 @@
         <p><strong>1. Zero Data Collection:</strong> Premium Wallpaper Tab does not collect, track, transmit, or monetize your search queries, URLs, IP address, or browser history.</p>
         <p><strong>2. Local Storage Only:</strong> All preferences — such as your favorite wallpapers, clock format (12h/24h), and brightness dimming — are stored exclusively inside your browser's local storage.</p>
         <p><strong>3. No External Analytics:</strong> We do not inject tracking cookies, fingerprinting scripts, or third-party marketing tags.</p>
-        <p><strong>4. Image CDN:</strong> Wallpaper imagery is requested directly from Unsplash's public high-availability CDN with standard HTTPS encryption.</p>
+        <p><strong>4. Local Assets:</strong> All wallpaper imagery is bundled locally inside the project, ensuring fast offline loads without external telemetry.</p>
       </div>
     </div>
   </div>
@@ -983,7 +989,7 @@
       <div class="modal-header">
         <span class="modal-badge">Get In Touch</span>
         <h3 class="modal-title">Feedback & Wallpaper Submissions</h3>
-        <p class="modal-subtitle">Suggest new categories, report an issue, or submit your photography.</p>
+        <p class="modal-subtitle">Suggest new categories, report an issue, or submit your digital artwork.</p>
       </div>
       <form class="contact-form" id="contactForm">
         <div class="form-group">
@@ -996,7 +1002,7 @@
         </div>
         <div class="form-group">
           <label class="form-label" for="contactMsg">Message or Submission Details</label>
-          <textarea class="form-textarea" id="contactMsg" placeholder="Share your suggestions or wallpaper link..." required></textarea>
+          <textarea class="form-textarea" id="contactMsg" placeholder="Share your suggestions or artwork link..." required></textarea>
         </div>
         <button type="submit" class="btn btn-primary" style="width: 100%;">
           Send Message

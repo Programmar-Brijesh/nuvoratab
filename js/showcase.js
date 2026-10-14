@@ -15,7 +15,6 @@ window.ShowcaseController = {
   },
 
   init() {
-    // Start with Nature Luca Bravo or first item
     this.currentWallpaper = window.WallpaperData.wallpapers[0];
     this.bindEvents();
     this.startClock();
@@ -61,7 +60,7 @@ window.ShowcaseController = {
     const currentIndex = list.findIndex(w => w.id === this.currentWallpaper.id);
     const nextIndex = (currentIndex + 1) % list.length;
     this.setWallpaper(list[nextIndex]);
-    window.App.showToast(`Switched to "${list[nextIndex].title}"`);
+    window.App.showToast(`Active: "${list[nextIndex].title}"`);
   },
 
   randomWallpaper() {
@@ -81,12 +80,10 @@ window.ShowcaseController = {
       const minutes = String(now.getMinutes()).padStart(2, '0');
       const seconds = String(now.getSeconds()).padStart(2, '0');
 
-      // Greeting based on time
       let greeting = 'Good evening';
       if (hours >= 5 && hours < 12) greeting = 'Good morning';
       else if (hours >= 12 && hours < 17) greeting = 'Good afternoon';
 
-      // Time formatting
       let displayHours = hours;
       let ampm = '';
 
@@ -98,7 +95,6 @@ window.ShowcaseController = {
       if (timeDisplay) timeDisplay.textContent = `${displayHours}:${minutes}`;
       if (ampmDisplay) ampmDisplay.textContent = ampm ? ` ${ampm}` : `:${seconds}`;
 
-      // Date formatting
       const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
       const dateStr = now.toLocaleDateString('en-US', dateOptions);
       if (greetingDate) {
