@@ -1,0 +1,22 @@
+{
+  "name": "nuvoratab-support-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker backend for NuvoraTab Discord Support Integration",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "npx wrangler dev",
+    "deploy": "npx wrangler deploy",
+    "tail": "npx wrangler tail",
+    "secret:set": "npx wrangler secret put DISCORD_SUPPORT_WEBHOOK",
+    "test": "node ../tests/test-worker.mjs"
+  },
+  "keywords": [
+    "nuvoratab",
+    "cloudflare-worker",
+    "discord-webhook",
+    "support-tickets"
+  ],
+  "author": "NuvoraTab",
+  "license": "MIT"
+}

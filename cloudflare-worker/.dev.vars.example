@@ -1,0 +1,10 @@
+# Cloudflare Worker Local Development Variables (.dev.vars)
+# Copy this file to .dev.vars for local testing with `wrangler dev`:
+#   cp .dev.vars.example .dev.vars
+#
+# NOTE: .dev.vars is gitignored and must NEVER be committed to Git.
+# In production, set the secret securely via:
+#   npx wrangler secret put DISCORD_SUPPORT_WEBHOOK
+
+DISCORD_SUPPORT_WEBHOOK=https://discord.com/api/webhooks/your_webhook_id/your_webhook_token
+ALLOWED_ORIGINS=https://brijesh-verma.github.io

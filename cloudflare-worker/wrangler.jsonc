@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nuvoratab-support-worker",
+  "main": "src/index.js",
+  "compatibility_date": "2024-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    // Comma-separated list of additional permitted production origins.
+    // Localhost origins (3000, 8080, 5500, 8787) and https://brijesh-verma.github.io are allowed by default.
+    "ALLOWED_ORIGINS": "https://brijesh-verma.github.io"
+  }
+}

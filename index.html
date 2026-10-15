@@ -3,23 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NuvoraTab — Minimalist Focus for Chrome New Tab</title>
+  <title>NuvoraTab: HD Wallpapers &amp; New Tab</title>
   
   <!-- SEO & OpenGraph Metadata -->
-  <meta name="description" content="A minimal, distraction-free new-tab experience for Chrome. Replaces blank pages and algorithmic clutter with curated high-definition aesthetics, sub-millisecond speeds, and an unobtrusive digital clock.">
-  <meta name="keywords" content="NuvoraTab, chrome extension, minimal new tab, developer new tab, distraction free, 4k wallpaper tab, minimalist startpage">
+  <meta name="description" content="HD wallpapers for every new tab. Discover new wallpapers regularly — our collection keeps growing with fresh Nature, Space and Technology wallpapers over time.">
+  <meta name="keywords" content="NuvoraTab, Chrome extension, HD wallpapers, new tab, background wallpapers, nature wallpapers, space wallpapers, technology wallpapers, clean new tab">
   <meta name="author" content="NuvoraTab">
-  <meta property="og:title" content="NuvoraTab — Minimalist Focus for Chrome">
-  <meta property="og:description" content="Clean typography, precise spacing, and intentional calm on every new tab. Built for modern creators and engineers.">
+  
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="NuvoraTab: HD Wallpapers &amp; New Tab">
+  <meta property="og:description" content="HD wallpapers for every new tab. Discover new wallpapers regularly — our collection keeps growing with fresh Nature, Space and Technology wallpapers over time.">
   <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
-  <meta name="theme-color" content="#08090c">
+  <meta property="og:image" content="./NuvoraTab.png">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NuvoraTab: HD Wallpapers &amp; New Tab">
+  <meta name="twitter:description" content="HD wallpapers for every new tab. Discover new wallpapers regularly — our collection keeps growing with fresh Nature, Space and Technology wallpapers over time.">
+  <meta name="twitter:image" content="./NuvoraTab.png">
+  <meta name="theme-color" content="#0A0F1C">
 
   <!-- Favicon & Touch Icons -->
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/icon32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/icon16.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="./assets/icon128.png">
 
   <!-- Clean Google Fonts (Outfit & Plus Jakarta Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,20 +44,19 @@
 </head>
 <body>
 
-  <!-- 5-Layer Futuristic Background Architecture -->
+  <!-- Layered Background Architecture -->
   <div class="bg-system" aria-hidden="true">
-    <div class="bg-image-layer" id="bgImageLayer"></div>
+    <div class="bg-image-layer"></div>
     <div class="bg-contrast-overlay"></div>
-    <div class="bg-animated-mesh" id="bgAnimatedMesh">
+    <div class="bg-animated-mesh">
       <div class="ambient-orb orb-cyan"></div>
       <div class="ambient-orb orb-violet"></div>
       <div class="ambient-orb orb-blue"></div>
     </div>
-    <div class="bg-tech-grid"></div>
-    <canvas id="ambientCanvas" class="bg-particles-canvas"></canvas>
+    <div class="bg-subtle-grid"></div>
   </div>
 
-  <!-- 1. MINIMAL NAVBAR -->
+  <!-- 1. NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="#hero" class="brand-logo" aria-label="NuvoraTab">
@@ -57,21 +64,20 @@
         <span>NuvoraTab</span>
       </a>
 
-      <!-- Navigation Links -->
-      <nav aria-label="Main Navigation">
-        <ul class="nav-links">
-          <li><a href="#about" class="nav-link">About</a></li>
-          <li><a href="#features" class="nav-link">Features</a></li>
-          <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-          <li><a href="#faq" class="nav-link">FAQ</a></li>
-        </ul>
+      <!-- Desktop Nav Links -->
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="./support.html" class="nav-link">Support</a>
       </nav>
 
-      <!-- Primary CTA -->
+      <!-- Navbar Actions -->
       <div class="nav-actions">
-        <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm install-link" id="navGetStartedBtn">
+        <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm install-link" id="navInstallBtn">
           <span>Add to Chrome</span>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
             <polyline points="15 3 21 3 21 9"/>
             <line x1="10" y1="14" x2="21" y2="3"/>
@@ -80,7 +86,7 @@
 
         <!-- Mobile Menu Toggle -->
         <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <line x1="4" x2="20" y1="12" y2="12"/>
             <line x1="4" x2="20" y1="6" y2="6"/>
             <line x1="4" x2="20" y1="18" y2="18"/>
@@ -103,6 +109,7 @@
       <li><a href="#features" class="mobile-nav-link">Features</a></li>
       <li><a href="#how-it-works" class="mobile-nav-link">How It Works</a></li>
       <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+      <li><a href="./support.html" class="mobile-nav-link">Support</a></li>
     </ul>
     <div style="margin-top: auto;">
       <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary install-link" style="width: 100%; justify-content: center;">Add to Chrome</a>
@@ -116,21 +123,21 @@
         <div class="hero-grid">
           <div class="hero-content">
             <div class="hero-tag">
-              <span>CHROME NEW TAB ENGINE</span>
+              <span>A FRESH VIEW, EVERY NEW TAB</span>
             </div>
 
             <h1 class="hero-title">
-              A distraction-free <br>
-              <span class="cyan-gradient-text">visual sanctuary</span> for your browser.
+              Give your browser a fresh look with <br>
+              <span class="cyan-gradient-text">NuvoraTab</span>.
             </h1>
 
             <p class="hero-description">
-              Replace sterile blank tabs and algorithmic clutter with handpicked high-definition aesthetics, instant sub-millisecond load times, and an unobtrusive digital clock. Pure focus by design.
+              HD wallpapers for every new tab. Discover new wallpapers regularly &mdash; our collection keeps growing with fresh Nature, Space and Technology wallpapers over time with smooth, seamless transitions.
             </p>
 
             <div class="hero-actions">
               <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg install-link" id="heroPrimaryCta">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"/>
                   <circle cx="12" cy="12" r="4"/>
                   <line x1="21.17" y1="8" x2="12" y2="8"/>
@@ -140,15 +147,15 @@
                 <span>Add to Chrome &mdash; Free</span>
               </a>
               <a href="#features" class="text-link" id="heroSecondaryLink">
-                <span>Explore Architecture</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <span>Explore Features</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
               </a>
             </div>
           </div>
 
-          <!-- Interactive Engine Preview HUD (Full Width Balanced Console) -->
+          <!-- Interactive Engine Preview HUD -->
           <div class="hero-preview-hud" aria-label="Live Chrome New Tab Preview">
             <div class="hud-header">
               <div class="hud-controls">
@@ -157,10 +164,10 @@
                 <span class="hud-dot green"></span>
               </div>
               <div class="hud-title-bar">
-                <span>chrome://newtab</span>
+                <span>chrome://newtab &mdash; NuvoraTab</span>
               </div>
               <div class="hud-latency-pill">
-                <span>&lt; 40ms</span>
+                <span>HD Wallpaper</span>
               </div>
             </div>
 
@@ -170,7 +177,7 @@
                 <div class="hud-date" id="hudLiveDate">Wednesday, October 14</div>
               </div>
 
-              <div class="hud-realms-wrap" aria-label="Curated Aesthetic Realms">
+              <div class="hud-realms-wrap" aria-label="Wallpaper Categories">
                 <button class="hud-realm-chip" data-realm="nature">Nature</button>
                 <button class="hud-realm-chip" data-realm="space">Space</button>
                 <button class="hud-realm-chip active" data-realm="tech">Technology</button>
@@ -178,16 +185,16 @@
 
               <div class="hud-footer-metrics">
                 <div class="hud-metric-item">
-                  <span class="hud-metric-val">0 KB</span>
-                  <span class="hud-metric-lbl">Telemetry</span>
+                  <span class="hud-metric-val">3</span>
+                  <span class="hud-metric-lbl">Curated Collections</span>
                 </div>
                 <div class="hud-metric-item">
                   <span class="hud-metric-val">100%</span>
-                  <span class="hud-metric-lbl">Local Cache</span>
+                  <span class="hud-metric-lbl">Local Storage</span>
                 </div>
                 <div class="hud-metric-item">
-                  <span class="hud-metric-val">Instant</span>
-                  <span class="hud-metric-lbl">Cold Boot</span>
+                  <span class="hud-metric-val">Seamless</span>
+                  <span class="hud-metric-lbl">Transitions</span>
                 </div>
               </div>
             </div>
@@ -196,23 +203,26 @@
       </div>
     </section>
 
-    <!-- 3. ABOUT THE PRODUCT -->
+    <!-- 3. ABOUT SECTION -->
     <section class="section reveal-on-scroll" id="about">
       <div class="container">
         <div class="about-grid">
           <div>
-            <span class="section-tag">Philosophy</span>
+            <span class="section-tag">About NuvoraTab</span>
             <h2 class="about-lead-title">
-              Built for developers who value clarity over clutter.
+              Turn your everyday Chrome new tab into a beautiful visual experience.
             </h2>
           </div>
 
           <div class="about-body-text">
             <p>
-              The average engineer or knowledge worker opens more than 80 browser tabs every day. Standard new-tab pages exploit this moment with sponsored shortcuts, telemetry trackers, and distracting feeds.
+              Give your browser a fresh look with <strong>NuvoraTab &mdash; HD Wallpapers &amp; New Tab</strong>.
             </p>
             <p>
-              <strong>NuvoraTab</strong> eliminates the noise. It treats every new tab as a brief visual pause — delivering balanced high-definition scenery, local hardware time, and fast access to your workflow without tracking a single byte of your data.
+              Every day you open dozens of browser tabs. Standard new-tab pages crowd your screen with algorithmic feeds, distracting recommendations, and ads. NuvoraTab replaces that clutter with organized wallpaper categories, random discovery, and smooth background transitions.
+            </p>
+            <p>
+              Discover new wallpapers regularly. Our collection keeps growing with fresh Nature, Space and Technology wallpapers over time, giving you continuous variety and an inspiring workspace every time you open a tab.
             </p>
           </div>
         </div>
@@ -220,150 +230,163 @@
         <!-- Technical Specification Stats Bar -->
         <div class="specs-bar">
           <div class="spec-item">
-            <span class="spec-value">&lt; 40ms</span>
-            <span class="spec-label">Render Latency</span>
+            <span class="spec-value">3</span>
+            <span class="spec-label">Wallpaper Categories</span>
           </div>
           <div class="spec-item">
-            <span class="spec-value">0 KB</span>
-            <span class="spec-label">External Telemetry</span>
+            <span class="spec-value">Auto</span>
+            <span class="spec-label">Random Discovery</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-value">Smooth</span>
+            <span class="spec-label">Background Fades</span>
           </div>
           <div class="spec-item">
             <span class="spec-value">100%</span>
-            <span class="spec-label">Local Storage</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-value">3</span>
-            <span class="spec-label">Curated Realms</span>
+            <span class="spec-label">Private &amp; Local</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 4. CORE FEATURES (COMPACT GRID) -->
+    <!-- 4. CORE FEATURES SECTION -->
     <section class="section reveal-on-scroll" id="features">
       <div class="container">
-        <header class="section-header">
-          <span class="section-tag">Capabilities</span>
-          <h2 class="section-title">Engineered for simplicity.</h2>
-          <p class="section-desc">
-            Essential tools for a refined workspace, designed with restraint.
-          </p>
+        <header class="section-header center">
+          <span class="section-tag">Features</span>
+          <h2 class="section-title">Engineered for a seamless visual experience.</h2>
+          <p class="section-desc">Everything you need for an inspiring, distraction-free start page.</p>
         </header>
 
-        <div class="features-compact-grid">
-          <!-- Feature 1 -->
-          <div class="feature-box">
-            <div class="feature-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="features-grid">
+          <!-- Feature 1: Wallpaper Categories -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Explore Wallpaper Categories</h3>
+            <p class="feature-card-desc">
+              Organized collections designed for your aesthetic preference. Our collection keeps growing with fresh Nature, Space and Technology wallpapers over time:
+            </p>
+            <ul style="list-style:none; padding:0; margin:0.75rem 0 0 0; font-size:0.875rem; color:#94a3b8; display:flex; flex-direction:column; gap:0.4rem;">
+              <li>&bull; <strong style="color:#f1f5f9;">Nature</strong> &mdash; landscapes and natural scenery.</li>
+              <li>&bull; <strong style="color:#f1f5f9;">Space</strong> &mdash; galaxies, planets and cosmic views.</li>
+              <li>&bull; <strong style="color:#f1f5f9;">Technology</strong> &mdash; futuristic and digital-inspired visuals.</li>
+            </ul>
+          </div>
+
+          <!-- Feature 2: Discover Something New -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <polyline points="23 4 23 10 17 10"/>
+                <polyline points="1 20 1 14 7 14"/>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Discover Something New</h3>
+            <p class="feature-card-desc">
+              Discover new wallpapers regularly whenever you want a change of scenery. Set automatic rotation per new tab, once daily, or select manual favorites.
+            </p>
+          </div>
+
+          <!-- Feature 3: Smooth Visual Experience -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
               </svg>
             </div>
-            <h3 class="feature-title">Curated Aesthetic Realms</h3>
-            <p class="feature-desc">Handpicked scenes across Nature, Space, and Technology, color-balanced to ensure clock and typography remain crisp.</p>
+            <h3 class="feature-card-title">Smooth Visual Experience</h3>
+            <p class="feature-card-desc">
+              Enjoy refined transitions designed to make changing wallpapers feel seamless, avoiding abrupt screen flashes or visual jarring.
+            </p>
           </div>
 
-          <!-- Feature 2 -->
-          <div class="feature-box">
-            <div class="feature-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          <!-- Feature 4: Simple and Easy to Use -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
               </svg>
             </div>
-            <h3 class="feature-title">Sub-Millisecond Engine</h3>
-            <p class="feature-desc">Zero heavy JavaScript frameworks. Written in pure vanilla code for instantaneous opening with zero layout shift.</p>
+            <h3 class="feature-card-title">Simple and Easy to Use</h3>
+            <p class="feature-card-desc">
+              Browse categories and choose your preferred look through a straightforward settings panel. Pin favorites or trigger immediate background updates.
+            </p>
           </div>
 
-          <!-- Feature 3 -->
-          <div class="feature-box">
-            <div class="feature-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          <!-- Feature 5: Custom Uploads & Favorites -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
               </svg>
             </div>
-            <h3 class="feature-title">Private by Design</h3>
-            <p class="feature-desc">No network trackers, no cookies, and no cloud analytics. All preferences and bookmarks stay strictly on your local device.</p>
+            <h3 class="feature-card-title">Personal Uploads &amp; Favorites</h3>
+            <p class="feature-card-desc">
+              Save your favorite wallpapers with one click, or upload your own custom high-resolution images stored safely in your browser storage.
+            </p>
           </div>
 
-          <!-- Feature 4 -->
-          <div class="feature-box">
-            <div class="feature-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
+          <!-- Feature 6: Visual Adjustments -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
               </svg>
             </div>
-            <h3 class="feature-title">Minimal Digital Clock</h3>
-            <p class="feature-desc">Subtle digital time display synchronized with local hardware, featuring seamless 12-hour and 24-hour toggles.</p>
-          </div>
-
-          <!-- Feature 5 -->
-          <div class="feature-box">
-            <div class="feature-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="m16 3 5 5-5 5"/>
-                <path d="M4 20L21 8"/>
-                <path d="M21 16l-5 5"/>
-                <path d="M15 15l6 6M4 4l5 5"/>
-              </svg>
-            </div>
-            <h3 class="feature-title">Intelligent Discovery</h3>
-            <p class="feature-desc">Configure automated realm shuffling on every new tab, or lock down a single preferred visual atmosphere.</p>
-          </div>
-
-          <!-- Feature 6 -->
-          <div class="feature-box">
-            <div class="feature-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect width="20" height="14" x="2" y="5" rx="2"/>
-                <line x1="6" x2="6.01" y1="9" y2="9"/>
-                <line x1="10" x2="10.01" y1="9" y2="9"/>
-                <line x1="14" x2="14.01" y1="9" y2="9"/>
-              </svg>
-            </div>
-            <h3 class="feature-title">Zen Focus Mode</h3>
-            <p class="feature-desc">One-click toggle to hide search bars and speed-dial shortcuts for an entirely distraction-free workspace.</p>
+            <h3 class="feature-card-title">Adjustable Tint Overlay</h3>
+            <p class="feature-card-desc">
+              Control background darkness overlay tint from 0% to 60% with an interactive slider to guarantee optimal contrast and text legibility.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 5. HOW IT WORKS -->
+    <!-- 5. HOW IT WORKS SECTION -->
     <section class="section reveal-on-scroll" id="how-it-works">
       <div class="container">
-        <header class="section-header">
-          <span class="section-tag">Workflow</span>
+        <header class="section-header center">
+          <span class="section-tag">Simple Setup</span>
           <h2 class="section-title">Up and running in three steps.</h2>
-          <p class="section-desc">
-            No signup forms, no subscriptions, and zero complex configuration.
-          </p>
+          <p class="section-desc">Transform your browser startpage in less than a minute.</p>
         </header>
 
-        <div class="steps-timeline">
-          <!-- Step 1 -->
+        <div class="steps-grid">
           <div class="step-card">
             <div class="step-index-pill">01</div>
-            <h3 class="step-title">Add to Chrome</h3>
+            <h3 class="step-title">Install NuvoraTab</h3>
             <p class="step-desc">
-              Visit the extension listing and choose Add to Chrome to install the extension into your browser.
+              Click Add to Chrome to install NuvoraTab directly into your browser with straightforward permissions.
             </p>
           </div>
 
-          <!-- Step 2 -->
           <div class="step-card">
             <div class="step-index-pill">02</div>
-            <h3 class="step-title">Configure</h3>
+            <h3 class="step-title">Choose Your Look</h3>
             <p class="step-desc">
-              Select your preferred visual realm (Nature, Space, or Technology), choose your clock format, or enable smart random shuffle.
+              Browse Nature, Space and Technology categories, or enable automatic random background rotation.
             </p>
           </div>
 
-          <!-- Step 3 -->
           <div class="step-card">
             <div class="step-index-pill">03</div>
-            <h3 class="step-title">Focus</h3>
+            <h3 class="step-title">A Fresh View</h3>
             <p class="step-desc">
-              Press <code>Cmd+T</code> or <code>Ctrl+T</code>. Enjoy an uncluttered, high-definition sanctuary every time you open a tab.
+              Open a new Chrome tab and enjoy smooth transitions and curated high-definition backgrounds every time.
             </p>
           </div>
         </div>
@@ -376,7 +399,7 @@
         <header class="section-header center">
           <span class="section-tag">Questions</span>
           <h2 class="section-title">Frequently asked.</h2>
-          <p class="section-desc">Clear answers regarding functionality, privacy, and browser behavior.</p>
+          <p class="section-desc">Clear answers regarding functionality, categories, and browser behavior.</p>
         </header>
 
         <div class="faq-list">
@@ -384,13 +407,13 @@
           <div class="faq-item active">
             <button class="faq-trigger" aria-expanded="true">
               <span>What is NuvoraTab?</span>
-              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="m6 9 6 6 6-6"/>
               </svg>
             </button>
             <div class="faq-content">
               <p class="faq-answer">
-                NuvoraTab is a minimal, lightweight new-tab extension for Google Chrome. It replaces the default blank page with curated high-definition aesthetics, an unobtrusive digital clock, and clean speed-dial shortcuts.
+                NuvoraTab is a Chrome extension that turns your everyday new tab into a beautiful visual experience with organized wallpaper categories (Nature, Space, Technology), random discovery, and smooth background transitions.
               </p>
             </div>
           </div>
@@ -398,14 +421,29 @@
           <!-- FAQ 2 -->
           <div class="faq-item">
             <button class="faq-trigger" aria-expanded="false">
-              <span>Does visiting this website change my browser settings?</span>
-              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <span>What wallpaper categories are included?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="m6 9 6 6 6-6"/>
               </svg>
             </button>
             <div class="faq-content">
               <p class="faq-answer">
-                No. Visiting this website will never modify your browser configuration. To install the new-tab experience into Chrome, use the step-by-step setup guide via the Get Started button.
+                NuvoraTab features three curated categories: Nature (landscapes and natural scenery), Space (galaxies, planets and cosmic views), and Technology (futuristic and digital-inspired visuals). Discover new wallpapers regularly as our collection keeps growing with fresh Nature, Space and Technology wallpapers over time. You can also upload custom wallpapers and mark personal favorites.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 2B: Collection Updates -->
+          <div class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">
+              <span>Will new wallpapers be added over time?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p class="faq-answer">
+                Yes. Discover new wallpapers regularly. Our collection keeps growing with fresh Nature, Space and Technology wallpapers over time, giving you more variety to discover whenever you open a new tab.
               </p>
             </div>
           </div>
@@ -413,14 +451,14 @@
           <!-- FAQ 3 -->
           <div class="faq-item">
             <button class="faq-trigger" aria-expanded="false">
-              <span>How is user privacy protected?</span>
-              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <span>How does random discovery work?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="m6 9 6 6 6-6"/>
               </svg>
             </button>
             <div class="faq-content">
               <p class="faq-answer">
-                By architectural principle, the extension collects zero data. It does not transmit URLs, search queries, or telemetry to external servers. All settings and favorites remain exclusively in your browser's local storage.
+                You can set wallpaper auto-change frequency to Every New Tab, Daily (once per day), or Off (manual selection only). When enabled, NuvoraTab discovers a new background across your included categories with a seamless visual transition.
               </p>
             </div>
           </div>
@@ -428,14 +466,14 @@
           <!-- FAQ 4 -->
           <div class="faq-item">
             <button class="faq-trigger" aria-expanded="false">
-              <span>What categories and styles are included?</span>
-              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <span>How is user privacy protected?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="m6 9 6 6 6-6"/>
               </svg>
             </button>
             <div class="faq-content">
               <p class="faq-answer">
-                The collection focuses on three distinct aesthetics: Nature (alpine peaks, desert dunes, glacial sanctuaries), Space (deep nebulae, planetary rings, celestial horizons), and Technology (cyberpunk geometry, liquid metal, and quantum lattices).
+                NuvoraTab does not track, collect, or transmit your browsing history, URLs, or personal information. All preferences, custom uploads, and favorites remain stored locally within your Chrome browser.
               </p>
             </div>
           </div>
@@ -443,14 +481,14 @@
           <!-- FAQ 5 -->
           <div class="faq-item">
             <button class="faq-trigger" aria-expanded="false">
-              <span>How fast does a new tab load?</span>
-              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <span>Does visiting this website change my browser settings?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="m6 9 6 6 6-6"/>
               </svg>
             </button>
             <div class="faq-content">
               <p class="faq-answer">
-                Tabs render in under 50 milliseconds. Because all assets and scripts are bundled locally with zero remote API latency or analytics blockers, tab creation is practically instantaneous.
+                No. Visiting this website will never modify your browser configuration. To install the new tab experience into Chrome, use the Add to Chrome button to visit the Chrome Web Store listing.
               </p>
             </div>
           </div>
@@ -463,16 +501,16 @@
       <div class="container">
         <div class="cta-box">
           <span class="section-tag">Get Started</span>
-          <h2 class="cta-title">Bring calm to your daily workflow.</h2>
+          <h2 class="cta-title">NuvoraTab &mdash; A Fresh View, Every New Tab.</h2>
           <p class="cta-desc">
-            Available for Google Chrome. Private, minimal, and open.
+            Install NuvoraTab, open a new Chrome tab and explore your wallpaper experience.
           </p>
           <div class="cta-actions">
             <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg install-link" id="ctaInstallBtn">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"/>
                 <circle cx="12" cy="12" r="4"/>
-                <line x1="21.17" y1="8" x2="12" y2="8"/>
+                <line x1="21.17" y1="8" x2="8"/>
                 <line x1="3.95" y1="6.06" x2="8.54" y2="14"/>
                 <line x1="10.88" y1="21.94" x2="15.46" y2="14"/>
               </svg>
@@ -501,16 +539,17 @@
           <li><a href="#features" class="footer-link">Features</a></li>
           <li><a href="#how-it-works" class="footer-link">How It Works</a></li>
           <li><a href="#faq" class="footer-link">FAQ</a></li>
+          <li><a href="./support.html" class="footer-link">Support</a></li>
           <li><button class="footer-link trigger-privacy-modal" style="background:none; border:none; padding:0; cursor:pointer;">Privacy</button></li>
           <li><button class="footer-link trigger-contact-modal" style="background:none; border:none; padding:0; cursor:pointer;">Contact</button></li>
         </ul>
       </div>
 
       <div class="footer-bottom">
-        <span>&copy; 2026 NuvoraTab. All rights reserved.</span>
+        <span>&copy; 2026 NuvoraTab. All rights reserved. &bull; A Fresh View, Every New Tab.</span>
         <button class="back-to-top" id="backToTopBtn" aria-label="Back to top of page">
           <span>Top</span>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="m18 15-6-6-6 6"/>
           </svg>
         </button>
@@ -534,24 +573,24 @@
         <div class="install-step">
           <div class="install-num">1</div>
           <div class="install-info">
-            <span class="install-heading">Open Extensions Manager</span>
-            <span class="install-text">Navigate to <code>chrome://extensions</code> in your Chrome address bar.</span>
+            <span class="install-heading">Install from Chrome Web Store</span>
+            <span class="install-text">Click the <strong>Add to Chrome</strong> button to install NuvoraTab into your browser.</span>
           </div>
         </div>
 
         <div class="install-step">
           <div class="install-num">2</div>
           <div class="install-info">
-            <span class="install-heading">Enable Developer Mode</span>
-            <span class="install-text">Toggle the <strong>Developer mode</strong> switch in the top-right corner.</span>
+            <span class="install-heading">Open a New Tab</span>
+            <span class="install-text">Press <code>Ctrl+T</code> (or <code>Cmd+T</code> on macOS) to open your new tab page.</span>
           </div>
         </div>
 
         <div class="install-step">
           <div class="install-num">3</div>
           <div class="install-info">
-            <span class="install-heading">Load Unpacked Extension</span>
-            <span class="install-text">Click <strong>Load unpacked</strong> and select this repository folder.</span>
+            <span class="install-heading">Explore Wallpapers</span>
+            <span class="install-text">Click the settings icon to browse Nature, Space, Technology, or upload your own favorites.</span>
           </div>
         </div>
       </div>
@@ -567,13 +606,13 @@
     <div class="modal-dialog">
       <button class="modal-close-btn" aria-label="Close dialog">&times;</button>
       <div class="modal-header">
-        <span class="modal-tag">Security & Privacy</span>
+        <span class="modal-tag">Security &amp; Privacy</span>
         <h3 class="modal-title">Privacy Architecture</h3>
         <p class="modal-desc">Zero tracking. Zero telemetry. 100% local execution.</p>
       </div>
       <div style="font-size: 0.9rem; color: #94a3b8; line-height: 1.65; display: flex; flex-direction: column; gap: 0.85rem;">
         <p><strong>1. Zero Data Collection:</strong> We do not track, collect, or transmit your URLs, search terms, IP address, or browsing history.</p>
-        <p><strong>2. Local Storage Only:</strong> All configuration settings (such as clock format and theme preferences) are stored strictly within Chrome's local storage on your machine.</p>
+        <p><strong>2. Local Storage Only:</strong> All configuration settings (such as rotation frequency and overlay tint) are stored strictly within Chrome's local storage on your machine.</p>
         <p><strong>3. No External Analytics:</strong> The codebase contains no third-party tracking scripts, telemetry pixels, or marketing beacons.</p>
       </div>
     </div>
@@ -584,10 +623,20 @@
     <div class="modal-dialog">
       <button class="modal-close-btn" aria-label="Close dialog">&times;</button>
       <div class="modal-header">
-        <span class="modal-tag">Contact</span>
-        <h3 class="modal-title">Send Feedback</h3>
-        <p class="modal-desc">Share feedback, report an issue, or propose a feature.</p>
+        <span class="modal-tag">Contact &amp; Support</span>
+        <h3 class="modal-title">Get in Touch</h3>
+        <p class="modal-desc">Share feedback, report an issue, or reach our developer team directly.</p>
       </div>
+      
+      <!-- Direct Support Email Callout -->
+      <div style="background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.25); border-radius: var(--radius-sm); padding: 0.85rem 1rem; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;">
+        <div>
+          <div style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--accent-cyan); text-transform: uppercase;">Direct Email</div>
+          <a href="mailto:brijeshverma8896@gmail.com" style="font-size: 0.875rem; font-weight: 600; color: #ffffff; text-decoration: none; word-break: break-all;">brijeshverma8896@gmail.com</a>
+        </div>
+        <a href="./support.html" class="btn btn-secondary btn-sm" style="white-space: nowrap; font-size: 0.75rem;">Support Center</a>
+      </div>
+
       <form id="contactForm">
         <div class="form-group">
           <label class="form-label" for="contactName">Name</label>

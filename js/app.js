@@ -1,5 +1,5 @@
 /**
- * Premium Wallpaper Tab - Minimal Tech Application Script
+ * NuvoraTab - Official Application Script
  * Pure Vanilla JavaScript (Zero External Dependencies)
  */
 

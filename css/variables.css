@@ -1,28 +1,33 @@
-/* Premium Minimalist Tech Theme Variables */
+/* Official NuvoraTab Theme Variables */
 :root {
-  /* Surfaces - Near-black obsidian palette */
-  --bg-page: #08090c;
-  --bg-surface: #0e1017;
-  --bg-surface-hover: #131722;
-  --bg-surface-elevated: #161a26;
-  --bg-card: rgba(14, 16, 23, 0.7);
+  /* Surfaces - Deep Dark Palette */
+  --bg-page: #0A0F1C;
+  --bg-surface: #0e1424;
+  --bg-surface-hover: #131b2e;
+  --bg-surface-elevated: #162035;
+  --bg-card: rgba(14, 20, 36, 0.75);
 
-  /* Borders - Hairline precise lines */
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-medium: rgba(255, 255, 255, 0.12);
-  --border-highlight: rgba(255, 255, 255, 0.22);
-  --border-accent: rgba(0, 229, 255, 0.35);
+  /* Borders - Precise hairline lines */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.14);
+  --border-highlight: rgba(255, 255, 255, 0.25);
+  --border-accent: rgba(6, 182, 212, 0.4);
 
   /* Typography */
-  --text-primary: #f8fafc;
+  --text-primary: #F1F5F9;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
-  --text-inverse: #08090c;
+  --text-inverse: #0A0F1C;
 
-  /* Accents - Electric Cyan & Precision Blue */
-  --accent-cyan: #00e5ff;
-  --accent-blue: #38bdf8;
-  --accent-cyan-glow: rgba(0, 229, 255, 0.15);
+  /* Official Brand Accents - Primary Cyan, Secondary Blue, Accent Violet */
+  --brand-cyan: #06B6D4;
+  --brand-blue: #3B82F6;
+  --brand-violet: #8B5CF6;
+  --accent-cyan: #06B6D4;
+  --accent-blue: #3B82F6;
+  --accent-violet: #8B5CF6;
+  --accent-cyan-glow: rgba(6, 182, 212, 0.2);
+  --accent-violet-glow: rgba(139, 92, 246, 0.2);
   --accent-emerald: #10b981;
 
   /* Spacing */
@@ -31,7 +36,7 @@
   --max-width-narrow: 1080px;
   --section-padding: clamp(3.5rem, 6vw, 6rem);
 
-  /* Border Radii - Restrained & Sharp */
+  /* Border Radii */
   --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 12px;
