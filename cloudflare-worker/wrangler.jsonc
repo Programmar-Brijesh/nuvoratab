@@ -9,7 +9,7 @@
   },
   "vars": {
     // Comma-separated list of additional permitted production origins.
-    // Localhost origins (3000, 8080, 5500, 8787) and https://brijesh-verma.github.io are allowed by default.
-    "ALLOWED_ORIGINS": "https://brijesh-verma.github.io"
+    // Localhost origins (3000, 8080, 5500, 8787) and GitHub Pages origins are allowed by default.
+    "ALLOWED_ORIGINS": "https://programmar-brijesh.github.io,https://brijesh-verma.github.io"
   }
 }

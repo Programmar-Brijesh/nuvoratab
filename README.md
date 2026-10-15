@@ -130,7 +130,7 @@ npm test
 ## 🔒 Security & Privacy Architecture
 
 - **Encrypted Secret Storage**: The Discord Webhook URL is read strictly from the Cloudflare Worker secret `DISCORD_SUPPORT_WEBHOOK`. It is never exposed in client HTML, JavaScript, Git repositories, or GitHub Actions.
-- **CORS Protection**: Restricted to your production domain (`https://brijesh-verma.github.io` and optional custom domains) and localhost during development.
+- **CORS Protection**: Restricted to your production domain (`https://programmar-brijesh.github.io` and optional custom domains) and localhost during development.
 - **Input Sanitization**: Control characters are stripped and string lengths strictly enforced before building Discord embeds.
 - **Rate Limiting & Duplicate Guard**: Protection against rapid double-clicks, burst spam, and duplicate submissions.
 - **User Privacy**: Environment diagnostics are strictly optional and only attached if the user keeps the diagnostics checkbox enabled.

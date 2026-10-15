@@ -12,7 +12,7 @@ This directory contains the serverless Cloudflare Worker for **NuvoraTab Support
 
 2. **CORS Enforcement**:
    - Preflight `OPTIONS` and standard requests are restricted to allowed origins:
-     - Production: `https://brijesh-verma.github.io` (and any custom origins in `ALLOWED_ORIGINS`)
+     - Production: `https://programmar-brijesh.github.io` (and any custom origins in `ALLOWED_ORIGINS`)
      - Local development: `http://localhost:3000`, `http://localhost:8080`, `http://localhost:5500`, `http://localhost:8787`, `http://127.0.0.1:3000`, etc.
      - Chrome extensions: `chrome-extension://*`
 
@@ -70,7 +70,7 @@ When prompted, paste your Discord webhook URL:
 *(Optional)* If you host your static site on a custom domain (e.g., `https://nuvoratab.com`), you can set or adjust `ALLOWED_ORIGINS` in `wrangler.jsonc` or as an environment variable:
 ```jsonc
 "vars": {
-  "ALLOWED_ORIGINS": "https://brijesh-verma.github.io,https://nuvoratab.com"
+  "ALLOWED_ORIGINS": "https://programmar-brijesh.github.io,https://nuvoratab.com"
 }
 ```
 

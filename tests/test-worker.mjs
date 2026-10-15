@@ -93,7 +93,25 @@ async function runAllTests() {
     // ------------------------------------------------------------------------
     console.log('\n📦 Group 2: CORS Preflight & Origin Verification');
     {
-      // Allowed production origin
+      // Allowed production origin (Programmar-Brijesh GitHub Pages)
+      const reqRepoOwner = new Request('https://worker.local/api/support', {
+        method: 'OPTIONS',
+        headers: { 'Origin': 'https://programmar-brijesh.github.io' }
+      });
+      const resRepoOwner = await worker.fetch(reqRepoOwner, MOCK_ENV);
+      assert(resRepoOwner.status === 204, 'Preflight for https://programmar-brijesh.github.io returns 204');
+      assert(resRepoOwner.headers.get('Access-Control-Allow-Origin') === 'https://programmar-brijesh.github.io', 'Reflects programmar-brijesh.github.io');
+
+      // Case-insensitive GitHub Pages origin
+      const reqCase = new Request('https://worker.local/api/support', {
+        method: 'OPTIONS',
+        headers: { 'Origin': 'https://Programmar-Brijesh.github.io' }
+      });
+      const resCase = await worker.fetch(reqCase, MOCK_ENV);
+      assert(resCase.status === 204, 'Preflight with mixed-case Origin returns 204');
+      assert(resCase.headers.get('Access-Control-Allow-Origin') === 'https://Programmar-Brijesh.github.io', 'Reflects mixed-case origin');
+
+      // Allowed secondary production origin
       const reqProd = new Request('https://worker.local/api/support', {
         method: 'OPTIONS',
         headers: { 'Origin': 'https://brijesh-verma.github.io' }

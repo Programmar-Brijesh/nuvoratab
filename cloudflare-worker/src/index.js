@@ -48,6 +48,7 @@ const ALLOWED_CATEGORIES = [
 
 // Default permitted origins (Localhost & GitHub Pages)
 const DEFAULT_ALLOWED_ORIGINS = [
+  'https://programmar-brijesh.github.io',
   'https://brijesh-verma.github.io',
   'http://localhost:3000',
   'http://localhost:8080',
@@ -86,22 +87,29 @@ function sanitizeString(str, maxLength = 1000) {
  * Verify whether an Origin header matches allowed origins
  */
 function isOriginAllowed(origin, env = {}) {
-  if (!origin) return false;
+  if (!origin || typeof origin !== 'string') return false;
 
-  // 1. Check default origins
-  if (DEFAULT_ALLOWED_ORIGINS.includes(origin)) {
+  const normalizedOrigin = origin.trim().toLowerCase();
+
+  // 1. Check default origins (case-insensitive)
+  if (DEFAULT_ALLOWED_ORIGINS.some(allowed => allowed.toLowerCase() === normalizedOrigin)) {
     return true;
   }
 
-  // 2. Check chrome-extension origins
-  if (origin.startsWith('chrome-extension://')) {
+  // 2. Check GitHub Pages domains (e.g. https://programmar-brijesh.github.io)
+  if (/^https:\/\/[a-z0-9_-]+\.github\.io$/i.test(normalizedOrigin)) {
     return true;
   }
 
-  // 3. Check custom origins from environment variable ALLOWED_ORIGINS (comma-separated)
+  // 3. Check chrome-extension origins
+  if (normalizedOrigin.startsWith('chrome-extension://')) {
+    return true;
+  }
+
+  // 4. Check custom origins from environment variable ALLOWED_ORIGINS (comma-separated)
   if (env && env.ALLOWED_ORIGINS) {
-    const customOrigins = env.ALLOWED_ORIGINS.split(',').map(o => o.trim()).filter(Boolean);
-    if (customOrigins.includes(origin)) {
+    const customOrigins = env.ALLOWED_ORIGINS.split(',').map(o => o.trim().toLowerCase()).filter(Boolean);
+    if (customOrigins.includes(normalizedOrigin)) {
       return true;
     }
   }
