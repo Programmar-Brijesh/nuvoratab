@@ -1,0 +1,8 @@
+# robots.txt for NuvoraTab (https://programmar-brijesh.github.io/nuvoratab/)
+# Allow all search engine crawlers full access to public HTML pages and rendering assets
+
+User-agent: *
+Allow: /
+
+# Canonical Sitemap Location
+Sitemap: https://programmar-brijesh.github.io/nuvoratab/sitemap.xml

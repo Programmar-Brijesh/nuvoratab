@@ -52,10 +52,11 @@ npx wrangler login
 
 ---
 
-### Step 2: Configure the Secret (`DISCORD_SUPPORT_WEBHOOK`)
+### Step 2: Configure Secrets (`DISCORD_SUPPORT_WEBHOOK` & `PORTFOLIO_DISCORD_WEBHOOK_URL`)
 
-Set the encrypted secret directly in Cloudflare. You will be prompted to paste your webhook URL securely:
+Set the encrypted secrets directly in Cloudflare. You will be prompted to paste your webhook URLs securely:
 
+#### A. NuvoraTab Extension Support Webhook:
 ```bash
 # From the project root:
 npm run worker:secret
@@ -64,8 +65,17 @@ npm run worker:secret
 npx wrangler secret put DISCORD_SUPPORT_WEBHOOK
 ```
 
-When prompted, paste your Discord webhook URL:
-`https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN`
+#### B. Developer Portfolio Inquiries Dedicated Webhook:
+```bash
+# From the project root:
+npm run worker:secret:portfolio
+
+# Or inside the cloudflare-worker/ directory:
+npx wrangler secret put PORTFOLIO_DISCORD_WEBHOOK_URL
+```
+
+When prompted, paste your dedicated portfolio Discord webhook URL:
+`https://discord.com/api/webhooks/1560178379855237230/BQkaDjIYjT7q0H9Pp5LGHzFJ4gxbwWkUbBDvFJ6kdw4FoGi6yd0qFV8X1NtzuJC7XfMa`
 
 *(Optional)* If you host your static site on a custom domain (e.g., `https://nuvoratab.com`), you can set or adjust `ALLOWED_ORIGINS` in `wrangler.jsonc` or as an environment variable:
 ```jsonc

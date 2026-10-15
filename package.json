@@ -8,7 +8,8 @@
     "test:worker": "node tests/test-worker.mjs",
     "worker:dev": "npx wrangler dev --cwd cloudflare-worker",
     "worker:deploy": "npx wrangler deploy --cwd cloudflare-worker",
-    "worker:secret": "npx wrangler secret put DISCORD_SUPPORT_WEBHOOK --cwd cloudflare-worker"
+    "worker:secret": "npx wrangler secret put DISCORD_SUPPORT_WEBHOOK --cwd cloudflare-worker",
+    "worker:secret:portfolio": "npx wrangler secret put PORTFOLIO_DISCORD_WEBHOOK_URL --cwd cloudflare-worker"
   },
   "keywords": [
     "nuvoratab",

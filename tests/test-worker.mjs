@@ -22,8 +22,10 @@ import worker, {
 } from '../cloudflare-worker/src/index.js';
 
 const MOCK_WEBHOOK_URL = 'https://discord.com/api/webhooks/123456789012345678/mock_token_abcdef123456';
+const MOCK_PORTFOLIO_WEBHOOK_URL = 'https://discord.com/api/webhooks/987654321098765432/mock_portfolio_token_zyx987';
 const MOCK_ENV = {
   DISCORD_SUPPORT_WEBHOOK: MOCK_WEBHOOK_URL,
+  PORTFOLIO_DISCORD_WEBHOOK_URL: MOCK_PORTFOLIO_WEBHOOK_URL,
   ALLOWED_ORIGINS: 'https://brijesh-verma.github.io,https://nuvoratab.com'
 };
 
@@ -464,6 +466,137 @@ async function runAllTests() {
       assert(resNetErr.status === 502, 'Fetch network exception returns 502 Bad Gateway');
       const bodyNet = await resNetErr.json();
       assert(bodyNet.error.includes('Network connectivity error'), 'User receives helpful fallback message');
+    }
+
+    // ------------------------------------------------------------------------
+    // Group 11: Developer Portfolio Enquiry Flow & Discord Embed Routing
+    // ------------------------------------------------------------------------
+    console.log('\n📦 Group 11: Developer Portfolio Enquiry Flow & Embed Routing');
+    {
+      resetMemoryState();
+      let capturedWebhookUrl = null;
+      let capturedPayload = null;
+
+      mockDiscordHandler = async (url, options) => {
+        capturedWebhookUrl = url;
+        capturedPayload = JSON.parse(options.body);
+        return new Response(null, { status: 204 });
+      };
+
+      // Case A: Successful portfolio inquiry submission with full details
+      const portfolioPayload = {
+        source: 'portfolio',
+        type: 'portfolio_inquiry',
+        name: 'Jordan Smith',
+        email: 'jordan@techflow.dev',
+        service: 'Custom Business Website',
+        company: 'TechFlow Solutions',
+        budget: '$1,500 - $3,500',
+        message: 'Looking to build a fast, dark-themed responsive portfolio and dashboard.'
+      };
+
+      const res = await worker.fetch(new Request('https://worker.local/api/support', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Origin': 'https://programmar-brijesh.github.io',
+          'cf-connecting-ip': '198.51.100.22'
+        },
+        body: JSON.stringify(portfolioPayload)
+      }), MOCK_ENV);
+
+      assert(res.status === 200, 'Portfolio enquiry returns HTTP 200');
+      const data = await res.json();
+      assert(data.success === true, 'Response indicates success: true');
+      assert(data.ticketId && data.ticketId.startsWith('NVT-DEV-'), 'Enquiry ID has NVT-DEV prefix');
+      assert(capturedWebhookUrl === MOCK_PORTFOLIO_WEBHOOK_URL, 'Enquiry is routed to dedicated PORTFOLIO_DISCORD_WEBHOOK_URL');
+      assert(capturedPayload.username === 'Brijesh Portfolio Inquiries', 'Discord username matches portfolio desk identity');
+      assert(Array.isArray(capturedPayload.allowed_mentions?.parse) && capturedPayload.allowed_mentions.parse.length === 0, 'Mention abuse prevention (parse: []) is enforced');
+
+      // Verify Embed Fields
+      const embed = capturedPayload.embeds[0];
+      assert(embed.title.includes('Custom Business Website'), 'Embed title includes project type / service');
+      assert(embed.color === 0x38bdf8, 'Embed color matches portfolio cyan theme');
+
+      const fieldsMap = new Map(embed.fields.map(f => [f.name, f.value]));
+      assert(fieldsMap.get('Name') === 'Jordan Smith', 'Embed contains client Name');
+      assert(fieldsMap.get('Email') === 'jordan@techflow.dev', 'Embed contains client Email');
+      assert(fieldsMap.get('Subject / Project Type') === 'Custom Business Website', 'Embed contains Project Type');
+      assert(fieldsMap.get('Company / Organization') === 'TechFlow Solutions', 'Embed contains Company Name');
+      assert(fieldsMap.get('Estimated Budget') === '$1,500 - $3,500', 'Embed contains Estimated Budget');
+      assert(fieldsMap.get('Source') === 'Brijesh Web Dev Portfolio', 'Embed contains Source: Brijesh Web Dev Portfolio');
+      assert(fieldsMap.get('Message') === portfolioPayload.message, 'Embed contains project Message');
+
+      // Case B: Validation errors for portfolio enquiries
+      // 1. Missing name
+      const resNoName = await worker.fetch(new Request('https://worker.local/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.23' },
+        body: JSON.stringify({ ...portfolioPayload, name: '' })
+      }), MOCK_ENV);
+      assert(resNoName.status === 400, 'Empty name in portfolio enquiry returns HTTP 400');
+
+      // 2. Invalid email
+      const resBadEmail = await worker.fetch(new Request('https://worker.local/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.24' },
+        body: JSON.stringify({ ...portfolioPayload, email: 'not-an-email' })
+      }), MOCK_ENV);
+      assert(resBadEmail.status === 400, 'Invalid email in portfolio enquiry returns HTTP 400');
+
+      // 3. Missing service / subject
+      const resNoService = await worker.fetch(new Request('https://worker.local/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.25' },
+        body: JSON.stringify({ ...portfolioPayload, service: '', subject: '' })
+      }), MOCK_ENV);
+      assert(resNoService.status === 400, 'Missing service in portfolio enquiry returns HTTP 400');
+
+      // 4. Short message (<5 chars)
+      const resShortMsg = await worker.fetch(new Request('https://worker.local/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.26' },
+        body: JSON.stringify({ ...portfolioPayload, message: 'hi' })
+      }), MOCK_ENV);
+      assert(resShortMsg.status === 400, 'Short message (<5 chars) returns HTTP 400');
+
+      // Case C: Duplicate portfolio submission within 2 minutes
+      const resDup = await worker.fetch(new Request('https://worker.local/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.22' },
+        body: JSON.stringify(portfolioPayload)
+      }), MOCK_ENV);
+      assert(resDup.status === 409, 'Duplicate portfolio enquiry returns HTTP 409 Conflict');
+
+      // Case D: Fallback to DISCORD_SUPPORT_WEBHOOK when PORTFOLIO_DISCORD_WEBHOOK_URL is unset
+      resetMemoryState();
+      capturedWebhookUrl = null;
+      const envWithoutPortfolioSecret = {
+        DISCORD_SUPPORT_WEBHOOK: MOCK_WEBHOOK_URL,
+        ALLOWED_ORIGINS: 'https://brijesh-verma.github.io'
+      };
+      const resFallback = await worker.fetch(new Request('https://worker.local/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.30' },
+        body: JSON.stringify({
+          source: 'portfolio',
+          name: 'Fallback User',
+          email: 'fallback@example.com',
+          service: 'Web App',
+          message: 'Testing fallback webhook configuration.'
+        })
+      }), envWithoutPortfolioSecret);
+      assert(resFallback.status === 200, 'Portfolio enquiry falls back to DISCORD_SUPPORT_WEBHOOK if portfolio secret is unset');
+      assert(capturedWebhookUrl === MOCK_WEBHOOK_URL, 'Dispatched to fallback webhook');
+
+      // Case E: Missing all webhook secrets returns 503
+      resetMemoryState();
+      const resNoSecrets = await worker.fetch(new Request('https://worker.local/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.31' },
+        body: JSON.stringify(portfolioPayload)
+      }), {});
+      assert(resNoSecrets.status === 503, 'Missing all webhook secrets returns 503 Service Unavailable');
     }
 
   } finally {

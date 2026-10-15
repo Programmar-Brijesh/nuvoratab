@@ -66,10 +66,10 @@ const DEFAULT_ALLOWED_ORIGINS = [
  * Generate clean, readable Unique Ticket ID
  * Example: NVT-M8Z9X2-K4F1
  */
-function generateTicketId() {
+function generateTicketId(prefix = 'NVT') {
   const timestamp = Date.now().toString(36).toUpperCase();
   const randomPart = Math.random().toString(36).substring(2, 6).toUpperCase();
-  return `NVT-${timestamp.slice(-6)}-${randomPart}`;
+  return `${prefix}-${timestamp.slice(-6)}-${randomPart}`;
 }
 
 /**
@@ -253,11 +253,17 @@ async function handleRequest(request, env, ctx) {
     }, 200, corsHeaders);
   }
 
-  // 3. Match Support Ticket endpoint (/api/support, /support, or /)
-  if (pathname !== '/api/support' && pathname !== '/support' && pathname !== '/') {
+  // 3. Match Support Ticket & Portfolio Enquiry endpoint (/api/support, /support, /api/enquiry, /api/inquiry, or /)
+  if (
+    pathname !== '/api/support' &&
+    pathname !== '/support' &&
+    pathname !== '/api/inquiry' &&
+    pathname !== '/api/enquiry' &&
+    pathname !== '/'
+  ) {
     return jsonResponse({
       success: false,
-      error: 'Not Found. Use /api/support for support submissions.'
+      error: 'Not Found. Use /api/support for support and project inquiry submissions.'
     }, 404, corsHeaders);
   }
 
@@ -277,7 +283,7 @@ async function handleRequest(request, env, ctx) {
   if (contentLength && parseInt(contentLength, 10) > MAX_REQUEST_SIZE_BYTES) {
     return jsonResponse({
       success: false,
-      error: `Payload too large. Support tickets must be under ${MAX_REQUEST_SIZE_BYTES / 1024} KB.`
+      error: `Payload too large. Submissions must be under ${MAX_REQUEST_SIZE_BYTES / 1024} KB.`
     }, 413, corsHeaders);
   }
 
@@ -304,7 +310,7 @@ async function handleRequest(request, env, ctx) {
   if (rawBody.length > MAX_REQUEST_SIZE_BYTES) {
     return jsonResponse({
       success: false,
-      error: `Payload too large. Support tickets must be under ${MAX_REQUEST_SIZE_BYTES / 1024} KB.`
+      error: `Payload too large. Submissions must be under ${MAX_REQUEST_SIZE_BYTES / 1024} KB.`
     }, 413, corsHeaders);
   }
 
@@ -325,133 +331,287 @@ async function handleRequest(request, env, ctx) {
     }, 400, corsHeaders);
   }
 
-  const { name, email, category, subject, message, diagnostics } = payload;
+  // 8. Detect if payload is a Developer Portfolio Enquiry vs NuvoraTab Support Ticket
+  const isPortfolioEnquiry = Boolean(
+    payload.source === 'portfolio' ||
+    payload.source === 'Brijesh Web Dev Portfolio' ||
+    payload.type === 'portfolio_inquiry' ||
+    payload.service ||
+    payload.company ||
+    payload.budget
+  );
 
-  // 8. Field Validation & Sanitization
-  const cleanName = sanitizeString(name, 100);
-  const cleanEmail = sanitizeString(email, 150);
-  const cleanCategory = sanitizeString(category, 50);
-  const cleanSubject = sanitizeString(subject, 200);
-  const cleanMessage = sanitizeString(message, 3000);
-  const cleanDiagnostics = sanitizeString(diagnostics, 1000);
-
-  if (!cleanName || cleanName.length < 1) {
-    return jsonResponse({
-      success: false,
-      error: 'Your name is required.'
-    }, 400, corsHeaders);
-  }
+  let cleanName = '';
+  let cleanEmail = '';
+  let cleanSubject = '';
+  let cleanMessage = '';
+  let cleanCompany = '';
+  let cleanBudget = '';
+  let cleanCategory = '';
+  let cleanDiagnostics = '';
+  let selectedCategory = '';
+  let ticketId = '';
+  let webhookUrl = null;
+  let discordPayload = null;
+  let successMessage = '';
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!cleanEmail || !emailRegex.test(cleanEmail)) {
-    return jsonResponse({
-      success: false,
-      error: 'Please enter a valid email address so our team can follow up.'
-    }, 400, corsHeaders);
+
+  if (isPortfolioEnquiry) {
+    // ------------------------------------------------------------------------
+    // PORTFOLIO PROJECT ENQUIRY FLOW
+    // ------------------------------------------------------------------------
+    cleanName = sanitizeString(payload.name, 100);
+    cleanEmail = sanitizeString(payload.email, 150);
+    cleanSubject = sanitizeString(payload.service || payload.subject, 200);
+    cleanMessage = sanitizeString(payload.message || payload.details, 3000);
+    cleanCompany = sanitizeString(payload.company, 150);
+    cleanBudget = sanitizeString(payload.budget, 100);
+
+    if (!cleanName || cleanName.length < 1) {
+      return jsonResponse({
+        success: false,
+        error: 'Your name is required.'
+      }, 400, corsHeaders);
+    }
+
+    if (!cleanEmail || !emailRegex.test(cleanEmail)) {
+      return jsonResponse({
+        success: false,
+        error: 'Please enter a valid email address so I can follow up on your project brief.'
+      }, 400, corsHeaders);
+    }
+
+    if (!cleanSubject || cleanSubject.length < 2) {
+      return jsonResponse({
+        success: false,
+        error: 'Please specify the service or project type (minimum 2 characters).'
+      }, 400, corsHeaders);
+    }
+
+    if (!cleanMessage || cleanMessage.length < 5) {
+      return jsonResponse({
+        success: false,
+        error: 'Please enter details about your project requirements (minimum 5 characters).'
+      }, 400, corsHeaders);
+    }
+
+    // Duplicate submission check
+    if (isDuplicateSubmission(clientIp, cleanEmail, cleanSubject, cleanMessage)) {
+      return jsonResponse({
+        success: false,
+        error: 'An identical project enquiry was recently received. Please wait 2 minutes before submitting again.'
+      }, 409, corsHeaders);
+    }
+
+    // Routing: Prioritize PORTFOLIO_DISCORD_WEBHOOK_URL / PORTFOLIO_DISCORD_WEBHOOK with fallback to DISCORD_SUPPORT_WEBHOOK
+    webhookUrl = env ? (env.PORTFOLIO_DISCORD_WEBHOOK_URL || env.PORTFOLIO_DISCORD_WEBHOOK || env.DISCORD_SUPPORT_WEBHOOK) : null;
+    if (!webhookUrl || typeof webhookUrl !== 'string' || !webhookUrl.startsWith('https://discord.com/api/webhooks/')) {
+      console.error('[Portfolio Worker Error] PORTFOLIO_DISCORD_WEBHOOK_URL (or DISCORD_SUPPORT_WEBHOOK) secret is missing, empty, or invalid.');
+      return jsonResponse({
+        success: false,
+        error: 'Project inquiry dispatch service is currently unavailable. Please contact brijeshverma8896@gmail.com directly.'
+      }, 503, corsHeaders);
+    }
+
+    ticketId = generateTicketId('NVT-DEV');
+    successMessage = 'Your project inquiry has been received! Brijesh will review your brief and get back to you shortly.';
+
+    discordPayload = {
+      username: 'Brijesh Portfolio Inquiries',
+      avatar_url: 'https://raw.githubusercontent.com/Programmar-Brijesh/nuvoratab/main/assets/icon128.png',
+      allowed_mentions: { parse: [] },
+      embeds: [
+        {
+          title: `💼 [Portfolio Enquiry] ${cleanSubject}`,
+          description: `**New Client Project Enquiry**\nA potential client submitted an inquiry through the Developer Portfolio.`,
+          color: 0x38bdf8, // Cyan / Sky Blue
+          fields: [
+            {
+              name: 'Name',
+              value: cleanName,
+              inline: true
+            },
+            {
+              name: 'Email',
+              value: cleanEmail,
+              inline: true
+            },
+            {
+              name: 'Subject / Project Type',
+              value: cleanSubject,
+              inline: true
+            },
+            ...(cleanCompany ? [{
+              name: 'Company / Organization',
+              value: cleanCompany,
+              inline: true
+            }] : []),
+            ...(cleanBudget ? [{
+              name: 'Estimated Budget',
+              value: cleanBudget,
+              inline: true
+            }] : []),
+            {
+              name: 'Submitted At (UTC)',
+              value: new Date().toUTCString(),
+              inline: true
+            },
+            {
+              name: 'Source',
+              value: 'Brijesh Web Dev Portfolio',
+              inline: true
+            },
+            {
+              name: 'Status',
+              value: '🟢 New Lead / Awaiting Review',
+              inline: true
+            },
+            {
+              name: 'Message',
+              value: cleanMessage.length > 1024 ? cleanMessage.slice(0, 1021) + '...' : cleanMessage,
+              inline: false
+            }
+          ],
+          footer: {
+            text: `Brijesh Web Dev Portfolio • Enquiry ID: ${ticketId}`
+          },
+          timestamp: new Date().toISOString()
+        }
+      ]
+    };
+
+  } else {
+    // ------------------------------------------------------------------------
+    // NUVORATAB EXTENSION SUPPORT TICKET FLOW (PRESERVED UNCHANGED)
+    // ------------------------------------------------------------------------
+    const { name, email, category, subject, message, diagnostics } = payload;
+
+    cleanName = sanitizeString(name, 100);
+    cleanEmail = sanitizeString(email, 150);
+    cleanCategory = sanitizeString(category, 50);
+    cleanSubject = sanitizeString(subject, 200);
+    cleanMessage = sanitizeString(message, 3000);
+    cleanDiagnostics = sanitizeString(diagnostics, 1000);
+
+    if (!cleanName || cleanName.length < 1) {
+      return jsonResponse({
+        success: false,
+        error: 'Your name is required.'
+      }, 400, corsHeaders);
+    }
+
+    if (!cleanEmail || !emailRegex.test(cleanEmail)) {
+      return jsonResponse({
+        success: false,
+        error: 'Please enter a valid email address so our team can follow up.'
+      }, 400, corsHeaders);
+    }
+
+    selectedCategory = ALLOWED_CATEGORIES.includes(cleanCategory) ? cleanCategory : 'General Question';
+
+    if (!cleanSubject || cleanSubject.length < 2) {
+      return jsonResponse({
+        success: false,
+        error: 'Please enter a descriptive subject line (minimum 2 characters).'
+      }, 400, corsHeaders);
+    }
+
+    if (!cleanMessage || cleanMessage.length < 5) {
+      return jsonResponse({
+        success: false,
+        error: 'Please enter a detailed description of your issue or question (minimum 5 characters).'
+      }, 400, corsHeaders);
+    }
+
+    // Duplicate Submission Check
+    if (isDuplicateSubmission(clientIp, cleanEmail, cleanSubject, cleanMessage)) {
+      return jsonResponse({
+        success: false,
+        error: 'An identical support request was recently received. Please wait 2 minutes before submitting again.'
+      }, 409, corsHeaders);
+    }
+
+    // Verify Server-Side Secret Configuration
+    webhookUrl = env ? env.DISCORD_SUPPORT_WEBHOOK : null;
+    if (!webhookUrl || typeof webhookUrl !== 'string' || !webhookUrl.startsWith('https://discord.com/api/webhooks/')) {
+      console.error('[Support Worker Error] DISCORD_SUPPORT_WEBHOOK secret is missing, empty, or invalid.');
+      return jsonResponse({
+        success: false,
+        error: 'Support dispatch service is currently unavailable. Please contact brijeshverma8896@gmail.com directly.'
+      }, 503, corsHeaders);
+    }
+
+    ticketId = generateTicketId();
+    const embedColor = CATEGORY_COLORS[selectedCategory] || 0x06b6d4;
+    successMessage = 'Your support ticket has been received and routed to our team.';
+
+    discordPayload = {
+      username: 'NuvoraTab Support Desk',
+      avatar_url: 'https://raw.githubusercontent.com/brijesh-verma/nuvoratab/main/assets/icon128.png',
+      allowed_mentions: { parse: [] },
+      embeds: [
+        {
+          title: `🎫 [${selectedCategory}] ${cleanSubject}`,
+          description: `**New Support Ticket Received**\nA user submitted a request through the NuvoraTab Support Portal.`,
+          color: embedColor,
+          fields: [
+            {
+              name: 'Ticket ID',
+              value: `\`${ticketId}\``,
+              inline: true
+            },
+            {
+              name: 'Inquiry Type',
+              value: selectedCategory,
+              inline: true
+            },
+            {
+              name: 'Timestamp',
+              value: new Date().toUTCString(),
+              inline: true
+            },
+            {
+              name: 'User Name',
+              value: cleanName,
+              inline: true
+            },
+            {
+              name: 'User Email',
+              value: cleanEmail,
+              inline: true
+            },
+            {
+              name: 'Status',
+              value: '🟢 Open / Needs Review',
+              inline: true
+            },
+            {
+              name: 'Subject Line',
+              value: cleanSubject,
+              inline: false
+            },
+            {
+              name: 'Detailed Description',
+              value: cleanMessage.length > 1024 ? cleanMessage.slice(0, 1021) + '...' : cleanMessage,
+              inline: false
+            },
+            {
+              name: 'Environment Diagnostics',
+              value: cleanDiagnostics
+                ? `\`\`\`yaml\n${cleanDiagnostics.slice(0, 950)}\n\`\`\``
+                : '*User opted out of environment diagnostics.*',
+              inline: false
+            }
+          ],
+          footer: {
+            text: `NuvoraTab Support Desk • Ticket ID: ${ticketId}`
+          },
+          timestamp: new Date().toISOString()
+        }
+      ]
+    };
   }
-
-  const selectedCategory = ALLOWED_CATEGORIES.includes(cleanCategory) ? cleanCategory : 'General Question';
-
-  if (!cleanSubject || cleanSubject.length < 2) {
-    return jsonResponse({
-      success: false,
-      error: 'Please enter a descriptive subject line (minimum 2 characters).'
-    }, 400, corsHeaders);
-  }
-
-  if (!cleanMessage || cleanMessage.length < 5) {
-    return jsonResponse({
-      success: false,
-      error: 'Please enter a detailed description of your issue or question (minimum 5 characters).'
-    }, 400, corsHeaders);
-  }
-
-  // 9. Duplicate Submission Check
-  if (isDuplicateSubmission(clientIp, cleanEmail, cleanSubject, cleanMessage)) {
-    return jsonResponse({
-      success: false,
-      error: 'An identical support request was recently received. Please wait 2 minutes before submitting again.'
-    }, 409, corsHeaders);
-  }
-
-  // 10. Verify Server-Side Secret Configuration
-  const webhookUrl = env ? env.DISCORD_SUPPORT_WEBHOOK : null;
-  if (!webhookUrl || typeof webhookUrl !== 'string' || !webhookUrl.startsWith('https://discord.com/api/webhooks/')) {
-    console.error('[Support Worker Error] DISCORD_SUPPORT_WEBHOOK secret is missing, empty, or invalid.');
-    return jsonResponse({
-      success: false,
-      error: 'Support dispatch service is currently unavailable. Please contact brijeshverma8896@gmail.com directly.'
-    }, 503, corsHeaders);
-  }
-
-  // 11. Generate Ticket ID & Discord Embed
-  const ticketId = generateTicketId();
-  const embedColor = CATEGORY_COLORS[selectedCategory] || 0x06b6d4;
-
-  const discordPayload = {
-    username: 'NuvoraTab Support Desk',
-    avatar_url: 'https://raw.githubusercontent.com/brijesh-verma/nuvoratab/main/assets/icon128.png',
-    embeds: [
-      {
-        title: `🎫 [${selectedCategory}] ${cleanSubject}`,
-        description: `**New Support Ticket Received**\nA user submitted a request through the NuvoraTab Support Portal.`,
-        color: embedColor,
-        fields: [
-          {
-            name: 'Ticket ID',
-            value: `\`${ticketId}\``,
-            inline: true
-          },
-          {
-            name: 'Inquiry Type',
-            value: selectedCategory,
-            inline: true
-          },
-          {
-            name: 'Timestamp',
-            value: new Date().toUTCString(),
-            inline: true
-          },
-          {
-            name: 'User Name',
-            value: cleanName,
-            inline: true
-          },
-          {
-            name: 'User Email',
-            value: cleanEmail,
-            inline: true
-          },
-          {
-            name: 'Status',
-            value: '🟢 Open / Needs Review',
-            inline: true
-          },
-          {
-            name: 'Subject Line',
-            value: cleanSubject,
-            inline: false
-          },
-          {
-            name: 'Detailed Description',
-            value: cleanMessage.length > 1024 ? cleanMessage.slice(0, 1021) + '...' : cleanMessage,
-            inline: false
-          },
-          {
-            name: 'Environment Diagnostics',
-            value: cleanDiagnostics
-              ? `\`\`\`yaml\n${cleanDiagnostics.slice(0, 950)}\n\`\`\``
-              : '*User opted out of environment diagnostics.*',
-            inline: false
-          }
-        ],
-        footer: {
-          text: `NuvoraTab Support Desk • Ticket ID: ${ticketId}`
-        },
-        timestamp: new Date().toISOString()
-      }
-    ]
-  };
 
   // 12. Dispatch to Discord Webhook with safety guarantees
   try {
@@ -459,7 +619,7 @@ async function handleRequest(request, env, ctx) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        'User-Agent': 'NuvoraTab-Support-Service/1.0'
+        'User-Agent': 'NuvoraTab-Service/1.0'
       },
       body: JSON.stringify(discordPayload)
     });
@@ -468,21 +628,21 @@ async function handleRequest(request, env, ctx) {
       return jsonResponse({
         success: true,
         ticketId: ticketId,
-        message: 'Your support ticket has been received and routed to our team.'
+        message: successMessage
       }, 200, corsHeaders);
     }
 
     // Discord returned non-success (e.g. 400, 401, 404, 500)
-    console.error(`[Support Worker Discord Error] Non-success status returned by Discord: ${discordResponse.status}`);
+    console.error(`[Worker Discord Error] Non-success status returned by Discord: ${discordResponse.status}`);
     return jsonResponse({
       success: false,
       error: 'Failed to deliver ticket to Discord. Please try again or email us directly at brijeshverma8896@gmail.com.'
     }, 502, corsHeaders);
   } catch (networkError) {
-    console.error('[Support Worker Network Error] Fetch to Discord failed:', networkError?.message || networkError);
+    console.error('[Worker Network Error] Fetch to Discord failed:', networkError?.message || networkError);
     return jsonResponse({
       success: false,
-      error: 'Network connectivity error contacting support dispatch. Please try again or email brijeshverma8896@gmail.com.'
+      error: 'Network connectivity error contacting dispatch service. Please try again or email brijeshverma8896@gmail.com.'
     }, 502, corsHeaders);
   }
 }
